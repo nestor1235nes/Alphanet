@@ -12,7 +12,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 
 
@@ -27,18 +29,33 @@ public class ViewLoginController implements Initializable {
     private TextField txtUser;
     
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
     @FXML
     private void eventKey(KeyEvent event){
         
-        Object evt = event.getSource();
-          
+
     }
     
     @FXML
     public void eventAction(ActionEvent event){
+        
+        Object evt = event.getSource();
+        if(evt.equals(btnLogin)){
+            if(!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()){
+                String user = txtUser.getText();
+                String pass = txtPassword.getText();
+                
+                System.out.println(user);
+                System.out.println(pass);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al iniciar sesión datos de acceso incorrectos", 
+                                                                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        
         
     }
     

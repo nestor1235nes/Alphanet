@@ -60,9 +60,9 @@ public class ViewLoginController implements Initializable {
         try {
             Stage stage = (Stage) btnLogin.getScene().getWindow();
             stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewPrincipal.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewStart.fxml"));
             stage = new Stage();
-            stage.setTitle("Principal");
+            stage.setTitle("Inicio Caja");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {

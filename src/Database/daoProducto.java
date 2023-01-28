@@ -37,7 +37,6 @@ public class daoProducto {
             c.desconectar();
             return true;
         } catch (Exception e) {
-            System.out.println("No se inserto registro");
             return false;
         }
     }
@@ -59,7 +58,6 @@ public class daoProducto {
             ps = null;
             c.desconectar();
         } catch (SQLException ex) {
-            System.out.println("Fallo el metodo read");
         }
         return lista;
     }
@@ -76,7 +74,26 @@ public class daoProducto {
             return true;
         } catch (SQLException ex) {
             return false;
-        }
-        
+        }   
+    }
+    
+    public boolean update(Producto p){
+        try {
+            System.out.println(p.getName());
+            System.out.println(p.getId());
+            System.out.println(p.getPrecio());
+            String sql = "UPDATE productos SET nombre=?,precio=? WHERE id=?";
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getPrecio());
+            ps.setInt(3, p.getId());
+            ps.execute();
+            ps.close();
+            ps = null;
+            c.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        } 
     }
 }

@@ -5,13 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewLoginController">
    <children>
@@ -23,6 +23,9 @@
                      <image>
                         <Image url="@../Images/Logo.jpg" />
                      </image>
+                     <effect>
+                        <DropShadow />
+                     </effect>
                   </ImageView>
                   <Label layoutX="166.0" layoutY="46.0" prefHeight="36.0" prefWidth="90.0" text="ALPHA">
                      <font>
@@ -79,6 +82,9 @@
                      <font>
                         <Font name="Baskerville Old Face" size="16.0" />
                      </font>
+                     <effect>
+                        <DropShadow height="29.79" radius="18.060000000000002" width="44.45" />
+                     </effect>
                   </Button>
                </children>
             </VBox>

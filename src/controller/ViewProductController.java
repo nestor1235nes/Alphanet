@@ -93,8 +93,9 @@ public class ViewProductController implements Initializable {
             if (!dao.delete(p.getId())) {
                 JOptionPane.showMessageDialog(null, "No se elimino el registro");
             }
+            refreshTable();
         }
-        refreshTable();
+        
     }
 
     @FXML

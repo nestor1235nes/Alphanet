@@ -126,12 +126,12 @@ public class ViewProductController implements Initializable {
     void pdfButton(ActionEvent event) {
         try {
             FileOutputStream archivo;
-            File file = new File("C:\\Users\\Gama\\Documents\\Alphanet\\src\\pdf\\reporte.pdf");
+            File file = new File("src\\pdf\\reporte.pdf");
             archivo = new FileOutputStream(file);
             Document doc = new Document();
             PdfWriter.getInstance(doc, archivo);
             doc.open();
-            Image img = Image.getInstance("C:\\Users\\Gama\\Documents\\Alphanet\\src\\Images\\alphanet.jpg");
+            Image img = Image.getInstance("src\\Images\\alphanet.jpg");
             img.setAlignment(Element.ALIGN_CENTER);
             img.scaleToFit(100, 100);
             doc.add(img);
@@ -175,10 +175,13 @@ public class ViewProductController implements Initializable {
             archivo.close();
             Desktop.getDesktop().open(file);
         } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al crear archivo");
         } catch (DocumentException ex) {
+            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al crear documento PDF");
         } catch (IOException ex) {
+            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error al crear I/O");
         }
         

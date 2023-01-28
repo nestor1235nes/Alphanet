@@ -64,6 +64,11 @@ public class ViewProductController implements Initializable {
         }
         
     }
+    
+    public void cleanTextField(){
+        nameField.setText("");
+        priceField.setText("");
+    }
 
     @FXML
     void addProduct(ActionEvent event) {
@@ -74,16 +79,19 @@ public class ViewProductController implements Initializable {
             JOptionPane.showMessageDialog(null, "No se inserto el producto");
         }
         refreshTable();
+        cleanTextField();
     }
     
     @FXML
     void clickProduct(MouseEvent event) {
-        p = productTable.getSelectionModel().getSelectedItem();     
+        p = productTable.getSelectionModel().getSelectedItem();
+        nameField.setText(p.getName());
+        priceField.setText(Integer.toString(p.getPrecio()));
     }
 
     @FXML
     void cleanButton(ActionEvent event) {
-        
+        cleanTextField();
     }
 
     @FXML
@@ -104,8 +112,15 @@ public class ViewProductController implements Initializable {
 
     @FXML
     void saveProduct(ActionEvent event) {
-
+        p.setName(nameField.getText());
+        p.setPrecio(Integer.parseInt(priceField.getText()));
+        if (!dao.update(p)) {
+            JOptionPane.showMessageDialog(null, "No se actualizo el registro");
+        }
+        refreshTable();
+        cleanTextField();
     }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         refreshTable();

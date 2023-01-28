@@ -37,19 +37,19 @@
       </Text>
       <Button layoutX="557.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="129.0" text="Cambiar Cajero">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="13.0" />
          </font></Button>
       <Button fx:id="manageButton" layoutX="573.0" layoutY="49.0" mnemonicParsing="false" onAction="#manage" prefHeight="29.0" prefWidth="102.0" text="Administrar">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="13.0" />
          </font></Button>
       <Button fx:id="cashPayment" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="551.0" layoutY="386.0" mnemonicParsing="false" onAction="#cash" prefHeight="40.0" prefWidth="142.0" text="Pago Efectivo" wrapText="true">
          <font>
-            <Font name="Baskerville Old Face" size="17.0" />
+            <Font name="Arial Bold" size="13.0" />
          </font></Button>
       <Button fx:id="btnpayCard" alignment="CENTER_RIGHT" layoutX="552.0" layoutY="435.0" mnemonicParsing="false" onAction="#payCard" prefHeight="40.0" prefWidth="142.0" text="Pago Tarjeta">
          <font>
-            <Font name="Baskerville Old Face" size="17.0" />
+            <Font name="Arial Bold" size="13.0" />
          </font></Button>
       <Button fx:id="addManual" layoutX="29.0" layoutY="71.0" mnemonicParsing="false" onAction="#manual" text="Ingresar producto manual">
          <font>
@@ -57,7 +57,7 @@
          </font></Button>
       <Button layoutX="231.0" layoutY="71.0" mnemonicParsing="false" text="Cuadrar caja">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="13.0" />
          </font></Button>
       <TableView layoutX="22.0" layoutY="113.0" prefHeight="382.0" prefWidth="519.0">
         <columns>
@@ -66,16 +66,16 @@
           <TableColumn prefWidth="90.0" text="Precio" />
         </columns>
       </TableView>
-      <Label layoutX="569.0" layoutY="292.0" text="Total a Pagar:">
+      <Label layoutX="569.0" layoutY="307.0" text="Total a Pagar:">
          <font>
-            <Font name="Baskerville Old Face" size="20.0" />
+            <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
       <AnchorPane layoutX="558.0" layoutY="327.0" prefHeight="49.0" prefWidth="129.0">
          <children>
             <Text layoutX="4.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="20.0">
                <font>
-                  <Font size="31.0" />
+                  <Font name="Arial Bold" size="13.0" />
                </font>
             </Text>
          </children>

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,38 +14,55 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProductController">
    <children>
-      <TextField fx:id="nameField" layoutX="247.0" layoutY="43.0" prefHeight="25.0" prefWidth="149.0" />
-      <TextField fx:id="priceField" layoutX="247.0" layoutY="83.0" />
+      <ImageView fitHeight="558.0" fitWidth="600.0" layoutX="21.0" opacity="0.12" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/inventario.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="nameField" layoutX="247.0" layoutY="43.0" prefHeight="26.0" prefWidth="175.0">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect></TextField>
+      <TextField fx:id="priceField" layoutX="247.0" layoutY="83.0">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect></TextField>
       <Text layoutX="64.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre del producto">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="15.0" />
          </font></Text>
       <Text layoutX="64.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="15.0" />
          </font></Text>
       <Button alignment="CENTER_RIGHT" layoutX="483.0" layoutY="54.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: #38ff87;" text="Agregar">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="14.0" />
          </font>
          <effect>
             <DropShadow />
          </effect></Button>
       <Button alignment="CENTER_RIGHT" layoutX="479.0" layoutY="298.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="31.0" prefWidth="95.0" style="-fx-background-color: #ff4040;" text="Eliminar" textFill="WHITE">
          <font>
-            <Font size="15.0" />
+            <Font name="Arial Bold" size="14.0" />
          </font></Button>
       <Button alignment="CENTER_RIGHT" layoutX="104.0" layoutY="141.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="29.0" prefWidth="95.0" text="Guardar">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="14.0" />
          </font></Button>
       <Button alignment="CENTER_RIGHT" layoutX="237.0" layoutY="141.0" mnemonicParsing="false" onAction="#cleanButton" prefHeight="29.0" prefWidth="95.0" text="Limpiar">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="14.0" />
          </font></Button>
       <Button alignment="CENTER_RIGHT" layoutX="378.0" layoutY="141.0" mnemonicParsing="false" onAction="#pdfButton" prefHeight="29.0" prefWidth="68.0" text="PDF">
          <font>
-            <Font name="Baskerville Old Face" size="16.0" />
+            <Font name="Arial Bold" size="14.0" />
          </font></Button>
       <TableView fx:id="productTable" layoutX="16.0" layoutY="236.0" onMouseClicked="#clickProduct" prefHeight="315.0" prefWidth="441.0">
         <columns>

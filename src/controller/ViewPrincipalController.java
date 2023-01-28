@@ -35,6 +35,23 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     private Button cashPayment;
     
+    @FXML
+    private Button btnpayCard;
+    
+    @FXML
+    void payCard(ActionEvent event){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewtypeCard.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Principal");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     @FXML 
     void cash(ActionEvent event){
         try {

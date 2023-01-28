@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProductController">
+   <children>
+      <TextField fx:id="nameField" layoutX="226.0" layoutY="43.0" />
+      <TextField fx:id="priceField" layoutX="226.0" layoutY="83.0" />
+      <Text layoutX="101.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+      <Text layoutX="101.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Precio" />
+      <Button layoutX="459.0" layoutY="43.0" mnemonicParsing="false" onAction="#addProduct" text="Agregar" />
+      <Button layoutX="459.0" layoutY="83.0" mnemonicParsing="false" onAction="#deleteProduct" text="Eliminar" />
+      <Button layoutX="459.0" layoutY="126.0" mnemonicParsing="false" onAction="#saveProduct" text="Guardar" />
+      <Button layoutX="461.0" layoutY="166.0" mnemonicParsing="false" onAction="#cleanButton" text="Limpiar" />
+      <Button layoutX="471.0" layoutY="209.0" mnemonicParsing="false" onAction="#pdfButton" text="PDF" />
+      <TableView fx:id="productTable" layoutX="155.0" layoutY="260.0" onMouseClicked="#clickProduct" prefHeight="268.0" prefWidth="293.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="119.0" text="Nombre" />
+            <TableColumn fx:id="priceCol" prefWidth="97.0" text="Precio" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

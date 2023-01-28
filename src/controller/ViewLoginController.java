@@ -10,10 +10,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 
@@ -26,8 +32,9 @@ import javax.swing.JOptionPane;
 public class ViewLoginController implements Initializable {
 
     @FXML
+    private HBox loginWindow;
+    @FXML
     private TextField txtUser;
-    
     @FXML
     private PasswordField txtPassword;
     @FXML
@@ -39,27 +46,29 @@ public class ViewLoginController implements Initializable {
     }
     
     @FXML
-    public void eventAction(ActionEvent event){
-        
-        Object evt = event.getSource();
-        if(evt.equals(btnLogin)){
-            if(!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()){
-                String user = txtUser.getText();
-                String pass = txtPassword.getText();
-                
-                System.out.println(user);
-                System.out.println(pass);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Error al iniciar sesión datos de acceso incorrectos", 
-                                                                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-            }
+    void eventAction(ActionEvent event) {
+        /*if(!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()){
+            String user = txtUser.getText();
+            String pass = txtPassword.getText();
+            System.out.println(user);
+            System.out.println(pass);            
         }
-        
-        
+        else{
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesión datos de acceso incorrectos", 
+                                                            "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }*/
+        try {
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            stage.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewPrincipal.fxml"));
+            stage = new Stage();
+            stage.setTitle("Principal");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+        }
     }
-    
-    
+      
     /**
      * Initializes the controller class.
      */

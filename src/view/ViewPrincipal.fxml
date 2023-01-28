@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewPrincipalController">
    <children>
       <AnchorPane layoutY="283.0" prefHeight="9.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
       <AnchorPane layoutY="250.0" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
@@ -32,7 +32,7 @@
          </font>
       </Text>
       <Button layoutX="585.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Cambiar Cajero" />
-      <Button layoutX="585.0" layoutY="46.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Administrar" />
+      <Button fx:id="manageButton" layoutX="585.0" layoutY="46.0" mnemonicParsing="false" onAction="#manage" prefHeight="25.0" prefWidth="101.0" text="Administrar" />
       <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="551.0" layoutY="386.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="142.0" text="Pago Efectivo" wrapText="true">
          <font>
             <Font name="Arial Black" size="12.0" />

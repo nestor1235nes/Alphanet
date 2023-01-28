@@ -20,19 +20,22 @@ import javafx.stage.Stage;
 public class Alphanet extends Application {
     
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLogin.fxml"));
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage primaryStage) {
+        try {         
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLogin.fxml"));
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            System.out.println("No se puedo iniciar el programa");
+            System.out.println(e.getMessage());
+        }      
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Conexion cx = new Conexion();
-        cx.conectar();
         launch(args);
     }  
 }

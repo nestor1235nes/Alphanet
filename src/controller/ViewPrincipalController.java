@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,27 @@ public class ViewPrincipalController implements Initializable {
     
     @FXML
     private Button btnpayCard;
+    
+    @FXML
+    private Button btnCashier;
+    
+    @FXML
+    void cashier(ActionEvent event){
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLogin.fxml"));
+            stage = new Stage();
+            stage.setTitle("Inicio de sesión");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
     @FXML
     void payCard(ActionEvent event){
@@ -81,7 +103,7 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     void manage(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewProduct.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewAdmin.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Principal");
             stage.setScene(new Scene(root));

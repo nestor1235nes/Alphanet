@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="365.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.ViewAdminController">
+   <children>
+      <ImageView fitHeight="398.0" fitWidth="356.0" layoutX="5.0" layoutY="24.0" opacity="0.21" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/admin.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCashier" layoutX="98.0" layoutY="100.0" mnemonicParsing="false" onAction="#cashier" style="-fx-background-color: #32454c;" text="Administrar cajeros" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="btnProduct" layoutX="87.0" layoutY="161.0" mnemonicParsing="false" onAction="#product" style="-fx-background-color: #32454c;" text="Administrar productos" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="btnCancel" layoutX="145.0" layoutY="238.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="Cacelar" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

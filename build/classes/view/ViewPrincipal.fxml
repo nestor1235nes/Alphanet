@@ -35,7 +35,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
-      <Button layoutX="557.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="129.0" text="Cambiar Cajero">
+      <Button fx:id="btnCashier" layoutX="557.0" layoutY="14.0" mnemonicParsing="false" onAction="#cashier" prefHeight="29.0" prefWidth="129.0" text="Cambiar Cajero">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font></Button>

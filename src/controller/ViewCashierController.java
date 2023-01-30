@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -20,26 +19,11 @@ import javafx.stage.Stage;
  *
  * @author ramir
  */
-public class ViewCashController implements Initializable {
-    
-    int monCliente=0;
-    int vuelto=0;
-    
-    @FXML
-    private TextField txtmontoCliente;
-    
+public class ViewCashierController implements Initializable {
+
     @FXML
     private Button btnCancel;
     
-    @FXML
-    void montoCliente(ActionEvent event){
-        monCliente = Integer.parseInt(txtmontoCliente.getText());
-        System.out.println(monCliente);
-        
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
     
     @FXML
     void cancel(ActionEvent event){
@@ -47,13 +31,6 @@ public class ViewCashController implements Initializable {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-    
-    /*public void Vuelto(int precioTotal){
-        vuelto = monCliente - precioTotal;
-        if(vuelto > 0){
-            System.out.println("Su vuelto es: " + vuelto);
-        }
-    }*/
     /**
      * Initializes the controller class.
      */

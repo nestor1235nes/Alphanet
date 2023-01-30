@@ -17,7 +17,7 @@
             <Image url="@../Images/efectivo.png" />
          </image>
       </ImageView>
-      <TextField layoutX="195.0" layoutY="56.0">
+      <TextField fx:id="txtmontoCliente" layoutX="195.0" layoutY="56.0">
          <effect>
             <InnerShadow />
          </effect>
@@ -29,7 +29,7 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
-      <Button layoutX="65.0" layoutY="105.0" mnemonicParsing="false" style="-fx-background-color: #32454c;" text="Ingresar monto" textFill="WHITE">
+      <Button fx:id="btningresarMonto" layoutX="65.0" layoutY="105.0" mnemonicParsing="false" onAction="#montoCliente" style="-fx-background-color: #32454c;" text="Ingresar monto" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>

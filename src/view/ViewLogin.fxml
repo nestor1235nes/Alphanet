@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -41,14 +42,14 @@
             </Pane>
             <Label prefHeight="91.0" prefWidth="155.0" text="Inicio de Sesión">
                <font>
-                  <Font name="Baskerville Old Face" size="23.0" />
+                  <Font name="Arial Bold" size="20.0" />
                </font>
             </Label>
             <VBox prefHeight="311.0" prefWidth="400.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label text="Usuario" textOverrun="WORD_ELLIPSIS">
                      <font>
-                        <Font name="Baskerville Old Face" size="20.0" />
+                        <Font name="Arial Bold" size="20.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="35.0" top="5.0" />
@@ -61,26 +62,35 @@
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" top="10.0" />
                      </VBox.margin>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
                   </TextField>
                   <Label text="Contraseña">
                      <VBox.margin>
                         <Insets left="35.0" top="15.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Baskerville Old Face" size="20.0" />
+                        <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
                   <PasswordField fx:id="txtPassword" onKeyTyped="#eventKey" prefHeight="30.0" prefWidth="340.0">
                      <VBox.margin>
                         <Insets left="30.0" right="30.0" top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
                   </PasswordField>
                   <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#eventAction" style="-fx-background-color: #32454c;" text="Ingresar" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="160.0" top="30.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="Baskerville Old Face" size="16.0" />
+                        <Font name="Arial Bold" size="16.0" />
                      </font>
                      <effect>
                         <DropShadow height="29.79" radius="18.060000000000002" width="44.45" />

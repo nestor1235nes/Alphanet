@@ -50,6 +50,9 @@ public class ViewProductController implements Initializable {
     int id;
     
     @FXML
+    private TableColumn<Producto, String> codeCol;
+    
+    @FXML
     private TableColumn<Producto, String> idCol;
 
     @FXML
@@ -63,6 +66,9 @@ public class ViewProductController implements Initializable {
 
     @FXML
     private TextField priceField;
+    
+    @FXML
+    private TextField codeField;
 
     @FXML
     private TableView<Producto> productTable;
@@ -71,20 +77,19 @@ public class ViewProductController implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("name"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("precio"));
+        codeCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("codigo"));
         try {       
             lista = dao.read();
-            for(Producto p: lista){
-                productTable.setItems(lista);
-            }
+            productTable.setItems(lista);
         } catch (Exception e) {
             System.out.println("No se pudo actualizar la tabla");
-        }
-        
+        }    
     }
     
     public void cleanTextField(){
         nameField.setText("");
         priceField.setText("");
+        codeField.setText("");
     }
 
     @FXML
@@ -92,6 +97,7 @@ public class ViewProductController implements Initializable {
         p = new Producto();
         p.setName(nameField.getText());
         p.setPrecio(Integer.parseInt(priceField.getText()));
+        p.setCodigo(Integer.parseInt(codeField.getText()));
         if (!dao.create(p)) {
             JOptionPane.showMessageDialog(null, "No se inserto el producto");
         }
@@ -104,6 +110,7 @@ public class ViewProductController implements Initializable {
         p = productTable.getSelectionModel().getSelectedItem();
         nameField.setText(p.getName());
         priceField.setText(Integer.toString(p.getPrecio()));
+        codeField.setText(Integer.toString(p.getCodigo()));
     }
 
     @FXML
@@ -114,7 +121,7 @@ public class ViewProductController implements Initializable {
     @FXML
     void deleteProduct(ActionEvent event) {
         int x = JOptionPane.showConfirmDialog(null, "Estas seguro de eliminar este registro?");
-        if (x == 0 && p.getId() > 0) {
+        if (x == 0) {
             if (!dao.delete(p.getId())) {
                 JOptionPane.showMessageDialog(null, "No se elimino el registro");
             }
@@ -144,20 +151,24 @@ public class ViewProductController implements Initializable {
             p.add(Chunk.NEWLINE);
             p.setAlignment(Element.ALIGN_CENTER);
             doc.add(p);
-            PdfPTable tabla = new PdfPTable(3);
+            PdfPTable tabla = new PdfPTable(4 );
             tabla.setWidthPercentage(100);
             PdfPCell c1 = new PdfPCell(new Phrase("ID", negrita));
             PdfPCell c2 = new PdfPCell(new Phrase("NOMBRE", negrita));
             PdfPCell c3 = new PdfPCell(new Phrase("PRECIO", negrita));
+            PdfPCell c4 = new PdfPCell(new Phrase("CODIGO", negrita));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             c2.setHorizontalAlignment(Element.ALIGN_CENTER);
             c3.setHorizontalAlignment(Element.ALIGN_CENTER);
+            c4.setHorizontalAlignment(Element.ALIGN_CENTER);
             c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
             c2.setBackgroundColor(BaseColor.LIGHT_GRAY);
             c3.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            c4.setBackgroundColor(BaseColor.LIGHT_GRAY);
             tabla.addCell(c1);
             tabla.addCell(c2);
             tabla.addCell(c3);
+            tabla.addCell(c4);
             lista = dao.read();
             for (Producto product : lista) {
                 tabla.addCell(""+product.getId());

@@ -5,8 +5,11 @@
  */
 package controller;
 
+import Database.Conexion;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,12 +20,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
-
-
 
 /**
  * FXML Controller class
@@ -30,6 +30,8 @@ import javax.swing.JOptionPane;
  * @author ramir
  */
 public class ViewLoginController implements Initializable {
+    
+    Conexion cx;
 
     @FXML
     private HBox loginWindow;
@@ -46,26 +48,31 @@ public class ViewLoginController implements Initializable {
     }
     
     @FXML
-    void eventAction(ActionEvent event) {
-        /*if(!txtUser.getText().isEmpty() && !txtPassword.getText().isEmpty()){
+    void eventAction(ActionEvent event) {    
+        try {  
+            cx = new Conexion();
+            cx.conectar();
             String user = txtUser.getText();
             String pass = txtPassword.getText();
-            System.out.println(user);
-            System.out.println(pass);            
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesión datos de acceso incorrectos", 
-                                                            "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
-        }*/
-        try {
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-            stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewStart.fxml"));
-            stage = new Stage();
-            stage.setTitle("Inicio Caja");
-            stage.setScene(new Scene(root));
-            stage.show();
+            String query = "SELECT * FROM usuarios WHERE usuario='"+user+"' and pass='"+pass+"'";
+            Statement st = cx.conectar().createStatement();
+            ResultSet rs = st.executeQuery(query);
+                Stage stage = (Stage) btnLogin.getScene().getWindow();
+                stage.close();
+                Parent root = FXMLLoader.load(getClass().getResource("/view/ViewStart.fxml"));
+                stage = new Stage();
+                stage.setTitle("Inicio Caja");
+                stage.setScene(new Scene(root));
+                stage.show();
+                cx.desconectar();
+            /*if (rs.next()) {
+                
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+            }*/     
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
       
@@ -74,7 +81,6 @@ public class ViewLoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @FXML

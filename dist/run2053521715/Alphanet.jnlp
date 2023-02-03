@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Alphanet.jar" size="130870" download="eager" />
+    <jar href="Alphanet.jar" size="217768" download="eager" />
     <jar href="lib\itextpdf-5.5.9.jar" size="2287148" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.15-bin.jar" size="785998" download="eager" />
   </resources>

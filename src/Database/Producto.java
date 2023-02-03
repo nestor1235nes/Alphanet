@@ -13,14 +13,24 @@ public class Producto {
     private int id;
     private String name;
     private int precio;
+    private int codigo;
 
-    public Producto(int id, String name, int precio) {
+    public Producto(int id, String name, int precio, int codigo) {
         this.id = id;
         this.name = name;
         this.precio = precio;
+        this.codigo = codigo;
     }
 
     public Producto() {
+    } 
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public int getId() {

@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  */
 public class ViewStartController implements Initializable {
 
-    String montoCaja;
+    int montoCaja = 0;
     
     @FXML
     private TextField txtMonto;
@@ -39,11 +39,10 @@ public class ViewStartController implements Initializable {
             
             Stage stage = (Stage) btnStart.getScene().getWindow();
             if(!txtMonto.getText().isEmpty()){
-                System.out.println("hola");
-                montoCaja = txtMonto.getText();
-                System.out.println(montoCaja);
+                montoCaja = Integer.parseInt(txtMonto.getText());
+                
             }
-            
+            System.out.println(montoCaja);
             stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewPrincipal.fxml"));
             stage = new Stage();

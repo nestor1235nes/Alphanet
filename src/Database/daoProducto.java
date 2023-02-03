@@ -8,9 +8,6 @@ package Database;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,17 +24,18 @@ public class daoProducto {
     
     public boolean create(Producto p){
         try {
-            String sql = "INSERT INTO productos(nombre,precio) VALUES(?,?)";
+            String sql = "INSERT INTO productos(nombre,precio,codigo) VALUES(?,?,?)";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getPrecio());
+            ps.setInt(3, p.getCodigo());
+            System.out.println(p.getCodigo());
             ps.execute();
             ps.close();
             ps = null;
             c.desconectar();
             return true;
         } catch (Exception e) {
-            System.out.println("No se inserto registro");
             return false;
         }
     }
@@ -53,13 +51,13 @@ public class daoProducto {
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("nombre"));
                 p.setPrecio(rs.getInt("precio"));
+                p.setCodigo(rs.getInt("codigo"));
                 lista.add(p);
             }
             ps.close();
             ps = null;
             c.desconectar();
         } catch (SQLException ex) {
-            System.out.println("Fallo el metodo read");
         }
         return lista;
     }
@@ -76,7 +74,26 @@ public class daoProducto {
             return true;
         } catch (SQLException ex) {
             return false;
-        }
-        
+        }   
+    }
+    
+    public boolean update(Producto p){
+        try {
+            System.out.println(p.getName());
+            System.out.println(p.getId());
+            System.out.println(p.getPrecio());
+            String sql = "UPDATE productos SET nombre=?,precio=? WHERE id=?";
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ps.setString(1, p.getName());
+            ps.setInt(2, p.getPrecio());
+            ps.setInt(3, p.getId());
+            ps.execute();
+            ps.close();
+            ps = null;
+            c.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        } 
     }
 }

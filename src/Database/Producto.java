@@ -5,6 +5,8 @@
  */
 package Database;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author Gama
@@ -13,9 +15,9 @@ public class Producto {
     private int id;
     private String name;
     private int precio;
-    private int codigo;
+    private BigInteger codigo;
 
-    public Producto(int id, String name, int precio, int codigo) {
+    public Producto(int id, String name, int precio, BigInteger codigo) {
         this.id = id;
         this.name = name;
         this.precio = precio;
@@ -25,11 +27,11 @@ public class Producto {
     public Producto() {
     } 
     
-    public int getCodigo() {
+    public BigInteger getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(BigInteger codigo) {
         this.codigo = codigo;
     }
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -10,20 +12,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.ViewCashierController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewCashierController">
    <children>
       <ImageView fitHeight="391.0" fitWidth="592.0" layoutX="181.0" layoutY="5.0" opacity="0.19" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/agregar%20cajero.png" />
          </image>
       </ImageView>
-      <Text layoutX="80.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
+      <Text layoutX="34.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="290.0" layoutY="43.0">
+      <TextField fx:id="nameField" layoutX="165.0" layoutY="43.0">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -31,12 +32,12 @@
             <InnerShadow />
          </effect>
       </TextField>
-      <Text layoutX="80.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
+      <Text layoutX="34.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="290.0" layoutY="163.0">
+      <TextField fx:id="userField" layoutX="165.0" layoutY="87.0">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -44,12 +45,12 @@
             <InnerShadow />
          </effect>
       </TextField>
-      <Text layoutX="80.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
+      <Text layoutX="34.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="290.0" layoutY="203.0">
+      <TextField fx:id="passField" layoutX="165.0" layoutY="136.0">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -57,33 +58,7 @@
             <InnerShadow />
          </effect>
       </TextField>
-      <Text layoutX="80.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Número de teléfono">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-      </Text>
-      <TextField layoutX="290.0" layoutY="123.0">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow />
-         </effect>
-      </TextField>
-      <Text layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-      </Text>
-      <TextField layoutX="290.0" layoutY="83.0">
-         <font>
-            <Font name="Arial Bold" size="16.0" />
-         </font>
-         <effect>
-            <InnerShadow />
-         </effect>
-      </TextField>
-      <Button layoutX="162.0" layoutY="293.0" mnemonicParsing="false" style="-fx-background-color: #32454c;" text="Agregar cajero" textFill="WHITE">
+      <Button layoutX="456.0" layoutY="45.0" mnemonicParsing="false" onAction="#addButton" style="-fx-background-color: #32454c;" text="Agregar" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -91,7 +66,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="btnCancel" layoutX="365.0" layoutY="293.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="Cancelar" textFill="WHITE">
+      <Button layoutX="454.0" layoutY="335.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="Cancelar" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -99,5 +74,37 @@
             <DropShadow />
          </effect>
       </Button>
+      <Button layoutX="455.0" layoutY="87.0" mnemonicParsing="false" onAction="#deleteButton" style="-fx-background-color: #32454c;" text="Eliminar" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button layoutX="457.0" layoutY="131.0" mnemonicParsing="false" onAction="#updateButton" style="-fx-background-color: #32454c;" text="Guardar" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button layoutX="459.0" layoutY="177.0" mnemonicParsing="false" onAction="#cleanTextField" style="-fx-background-color: #32454c;" text="Limpiar" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <TableView fx:id="userTable" layoutX="34.0" layoutY="177.0" onMouseClicked="#clickUser" prefHeight="200.0" prefWidth="391.0">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="40.0" text="ID" />
+          <TableColumn fx:id="nameCol" prefWidth="133.0" text="Nombre" />
+            <TableColumn fx:id="userCol" prefWidth="111.0" text="Usuario" />
+            <TableColumn fx:id="passCol" prefWidth="106.0" text="Contraseña" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

@@ -5,8 +5,6 @@
  */
 package Database;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,11 +60,6 @@ public class daoProducto {
             ex.getMessage();
         }
         return lista;
-    }
-    
-    public static BigInteger getBigInteger(ResultSet resultSet, int columnIndex) throws SQLException {
-        BigDecimal value = resultSet.getBigDecimal(columnIndex);
-        return value == null ? null : value.toBigInteger();
     }
     
     public boolean delete(int id){

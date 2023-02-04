@@ -79,14 +79,12 @@ public class daoProducto {
     
     public boolean update(Producto p){
         try {
-            System.out.println(p.getName());
-            System.out.println(p.getId());
-            System.out.println(p.getPrecio());
             String sql = "UPDATE productos SET nombre=?,precio=?,codigo=? WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getPrecio());
             ps.setObject(3, p.getCodigo());
+            ps.setInt(4, p.getId());
             ps.execute();
             ps.close();
             ps = null;

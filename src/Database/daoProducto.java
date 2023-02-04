@@ -5,6 +5,8 @@
  */
 package Database;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,8 +30,7 @@ public class daoProducto {
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getPrecio());
-            ps.setInt(3, p.getCodigo());
-            System.out.println(p.getCodigo());
+            ps.setObject(3, p.getCodigo());
             ps.execute();
             ps.close();
             ps = null;
@@ -51,15 +52,21 @@ public class daoProducto {
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("nombre"));
                 p.setPrecio(rs.getInt("precio"));
-                p.setCodigo(rs.getInt("codigo"));
+                p.setCodigo(rs.getBigDecimal("codigo").toBigInteger());
                 lista.add(p);
             }
             ps.close();
             ps = null;
             c.desconectar();
         } catch (SQLException ex) {
+            ex.getMessage();
         }
         return lista;
+    }
+    
+    public static BigInteger getBigInteger(ResultSet resultSet, int columnIndex) throws SQLException {
+        BigDecimal value = resultSet.getBigDecimal(columnIndex);
+        return value == null ? null : value.toBigInteger();
     }
     
     public boolean delete(int id){
@@ -82,11 +89,11 @@ public class daoProducto {
             System.out.println(p.getName());
             System.out.println(p.getId());
             System.out.println(p.getPrecio());
-            String sql = "UPDATE productos SET nombre=?,precio=? WHERE id=?";
+            String sql = "UPDATE productos SET nombre=?,precio=?,codigo=? WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getPrecio());
-            ps.setInt(3, p.getId());
+            ps.setObject(3, p.getCodigo());
             ps.execute();
             ps.close();
             ps = null;

@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -97,7 +98,7 @@ public class ViewProductController implements Initializable {
         p = new Producto();
         p.setName(nameField.getText());
         p.setPrecio(Integer.parseInt(priceField.getText()));
-        p.setCodigo(Integer.parseInt(codeField.getText()));
+        p.setCodigo(new BigInteger(codeField.getText()));
         if (!dao.create(p)) {
             JOptionPane.showMessageDialog(null, "No se inserto el producto");
         }
@@ -110,7 +111,7 @@ public class ViewProductController implements Initializable {
         p = productTable.getSelectionModel().getSelectedItem();
         nameField.setText(p.getName());
         priceField.setText(Integer.toString(p.getPrecio()));
-        codeField.setText(Integer.toString(p.getCodigo()));
+        codeField.setText(""+p.getCodigo());
     }
 
     @FXML

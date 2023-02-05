@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewPrincipalController">
+<AnchorPane id="AnchorPane" fx:id="scanCode" onKeyReleased="#enterTyped" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewPrincipalController">
    <children>
       <AnchorPane layoutY="283.0" prefHeight="9.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
       <AnchorPane layoutY="250.0" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
@@ -59,11 +59,11 @@
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font></Button>
-      <TableView layoutX="22.0" layoutY="113.0" prefHeight="382.0" prefWidth="519.0">
+      <TableView fx:id="shoppingTable" layoutX="22.0" layoutY="113.0" prefHeight="382.0" prefWidth="519.0">
         <columns>
-            <TableColumn prefWidth="75.0" text="Cant." />
-          <TableColumn prefWidth="353.0" text="Nombre del producto" />
-          <TableColumn prefWidth="90.0" text="Precio" />
+            <TableColumn fx:id="cantCol" prefWidth="63.0" text="Cant." />
+          <TableColumn fx:id="nameCol" prefWidth="365.0" text="Nombre del producto" />
+          <TableColumn fx:id="priceCol" prefWidth="90.0" text="Precio" />
         </columns>
       </TableView>
       <Label layoutX="569.0" layoutY="307.0" text="Total a Pagar:">
@@ -73,9 +73,9 @@
       </Label>
       <AnchorPane layoutX="558.0" layoutY="327.0" prefHeight="49.0" prefWidth="129.0">
          <children>
-            <Text layoutX="4.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="20.0">
+            <Text layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="20.0">
                <font>
-                  <Font name="Arial Bold" size="13.0" />
+                  <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
          </children>

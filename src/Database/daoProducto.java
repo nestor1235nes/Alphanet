@@ -41,6 +41,20 @@ public class daoProducto {
         }
     }
     
+    public boolean search(BigInteger codigo){
+        try {
+            String sql = "SELECT * FROM productos WHERE codigo=?";
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ps.setBigDecimal(1, new BigDecimal(codigo));
+            ps.execute();
+            ps.close();
+            ps = null;
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
     public ObservableList<Producto> read(){
         ObservableList<Producto> lista = FXCollections.observableArrayList();
         try {

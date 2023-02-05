@@ -42,6 +42,8 @@ public class ViewStartController implements Initializable {
                 montoCaja = Integer.parseInt(txtMonto.getText());
                 
             }
+           
+            
             System.out.println(montoCaja);
             stage.close();
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewPrincipal.fxml"));

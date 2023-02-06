@@ -46,7 +46,7 @@ public class ViewPrincipalController implements Initializable {
     ObservableList<Producto> lista;
     ObservableList<Producto> carrito=FXCollections.observableArrayList();;
     String aux = "";
-    //String code = "";
+    int count = 1;
     
     
     
@@ -90,7 +90,7 @@ public class ViewPrincipalController implements Initializable {
     
     public void refreshTable(){
 
-        //idCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("id"));
+        cantCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("cant"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("name"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("precio"));
         //codeCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("codigo"));
@@ -111,48 +111,119 @@ public class ViewPrincipalController implements Initializable {
         } catch (Exception e) {
             System.out.println("No se pudo actualizar la tabla");
         }
+
         
         
-        //BigInteger result = new BigInteger(aux);
-        /*try{
-            //aux=aux.replace(" ", "");
-            BigInteger a=new BigInteger(aux);
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println(aux);
-        }*/
+        
         if(event.getCode().equals(KeyCode.ENTER) ){
             
             aux=aux.substring(0,aux.length()-1);
-            System.out.println(aux);
+            
+            if(carrito.isEmpty()){
+                for(Producto p :lista){
 
-            for(Producto p :lista){
+                    String code = p.getCodigo().toString();
+
+                    if(aux.equals(code) && dao.search(p.getCodigo())){
+                        
+                        carrito.add(p);
+                        carrito.get(0).setCant(1);
+                        refreshTable();
+
+                    }
+                }
+                aux="";
+            }
+            else{
+                for(Producto p:lista){
+                    int size = carrito.size();
+                    int ite =0;
+                    int i=0;
+                    
+                    while(i<size){
+                        String code = carrito.get(i).getCodigo().toString();
+                        
+                        if(aux.equals(code)){
+                            System.out.println("aqui");
+                            count = carrito.get(i).getCant();
+                            count++;
+                            carrito.get(i).setCant(count);
+                            refreshTable();
+                            aux="";
+                            i++;
+                        }
+                        else{
+                            
+                            String code2 = p.getCodigo().toString();
+                            
+                            System.out.println(code2);
+                            System.out.println(aux);
+                            System.out.println("");
+                            if(aux.equals(code2) && dao.search(p.getCodigo())){
+                                System.out.println("aquiii");
+                                carrito.add(p);
+                                carrito.get(i).setCant(1);
+                                refreshTable();
+                                aux="";
+                                i++;
+                            }
+                            else{
+                                i++;
+                            }
+                        }
+                    }
+                    
+                    /*for(i=0 ; i<=size ; i++){
+                        String code = carrito.get(i).getCodigo().toString();
+ 
+                        if(aux.equals(code)){
+                            System.out.println("aqui");
+                            count = carrito.get(i).getCant();
+                            count++;
+
+                            carrito.get(i).setCant(count);
+                            refreshTable();
+                            ite=1;
+                            
+                            
+                        }
+                        else{
+                            code = p.getCodigo().toString();
+                                if(ite==0 && aux.equals(code)){
+
+                                carrito.add(p);
+                                carrito.get(i).setCant(1);
+
+                                refreshTable();
+                                size=i+1;
+                                aux="";
+
+                                }
+
+
+                        }
+
+                       break; 
+                    }*/
+                }
+                
+            }
+            
+
+            /*for(Producto p :lista){
 
                 String code = p.getCodigo().toString();
-                //System.out.println(aux);
-                //System.out.println(p.getCodigo());
+
                 if(aux.equals(code) && dao.search(p.getCodigo())){
-                    System.out.println("aqui");
                     carrito.add(p);
                     refreshTable();
                     
                 }
- 
-                /*
-                
-                System.out.println(code);
-                System.out.println(aux);
-                if(aux.equals(code)){  
-                    carrito.add(p);
-                    refreshTable();
-                    aux="";
-                }*/
-
             }
-            aux="";
+            aux="";*/
         }
         
-   
+    
     }
  
     @FXML

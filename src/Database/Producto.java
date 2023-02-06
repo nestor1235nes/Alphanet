@@ -12,12 +12,14 @@ import java.math.BigInteger;
  * @author Gama
  */
 public class Producto {
+    private int cant;
     private int id;
     private String name;
     private int precio;
     private BigInteger codigo;
 
-    public Producto(int id, String name, int precio, BigInteger codigo) {
+    public Producto(int id, String name, int precio, BigInteger codigo, int cant) {
+        this.cant = cant;
         this.id = id;
         this.name = name;
         this.precio = precio;
@@ -25,7 +27,19 @@ public class Producto {
     }
 
     public Producto() {
-    } 
+    }
+    
+    
+    
+    public int getCant(){
+        return cant;
+    }
+    public void setCant(int cant){
+        this.cant = cant;
+    }
+    
+    
+    
     
     public BigInteger getCodigo() {
         return codigo;

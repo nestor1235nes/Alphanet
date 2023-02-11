@@ -7,9 +7,16 @@ package controller;
 
 import Database.Producto;
 import Database.daoProducto;
+import Database.instanceProduct;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Map.Entry;
+import static java.util.Objects.hash;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +34,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.ENTER;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 
 /**
  * FXML Controller class
@@ -44,10 +53,12 @@ public class ViewPrincipalController implements Initializable {
     Producto p;
     daoProducto dao = new daoProducto();
     ObservableList<Producto> lista;
-    ObservableList<Producto> carrito=FXCollections.observableArrayList();;
+    ObservableList<instanceProduct> carrito=FXCollections.observableArrayList();;
     String aux = "";
     int count = 1;
     
+    //Map<String, Integer> hash = Collections.synchronizedMap(new HashMap());
+    HashMap<String, Integer> hash = new HashMap<String, Integer>();
     
     
     int id;
@@ -56,7 +67,7 @@ public class ViewPrincipalController implements Initializable {
     private Button manageButton;
     
     @FXML
-    private Button addManual;
+    private Button btnaddProduct;
     
     @FXML
     private Button cashPayment;
@@ -67,6 +78,11 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     private Button btnCashier;
     
+    @FXML
+    private TextField txtbarCode;
+    
+    @FXML
+    private TextField txtCant;
     
 
     
@@ -74,28 +90,32 @@ public class ViewPrincipalController implements Initializable {
     private AnchorPane scanCode;
     
     @FXML
-    private TableView<Producto> shoppingTable;
+    private TableView<instanceProduct> shoppingTable;
     
     @FXML
-    private TableColumn cantCol;
+    private TableColumn<instanceProduct, String> cantCol;
 
     @FXML
-    private TableColumn<Producto, String> nameCol;
+    private TableColumn<instanceProduct, String> nameCol;
 
     @FXML
-    private TableColumn<Producto, String> priceCol;
+    private TableColumn<instanceProduct, Integer> priceCol;
     
     
     
     
-    public void refreshTable(){
+    public void refreshTable(instanceProduct product){
+        
+        
+        cantCol.setCellValueFactory(new PropertyValueFactory<>("cant"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("precio"));
 
-        cantCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("cant"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("name"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("precio"));
-        //codeCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("codigo"));
         try {       
+            //shoppingTable.getItems().addAll(carrito);
             shoppingTable.setItems(carrito);
+            shoppingTable.refresh();
+
         } catch (Exception e) {
             System.out.println("No se pudo actualizar la tabla");
         }    
@@ -119,113 +139,136 @@ public class ViewPrincipalController implements Initializable {
             
             aux=aux.substring(0,aux.length()-1);
             
-            if(carrito.isEmpty()){
+            
+            
+            if(carrito.isEmpty()){    
                 for(Producto p :lista){
-
                     String code = p.getCodigo().toString();
+                    if(aux.equals(code) && dao.search(p.getCodigo())){ 
+                        instanceProduct producto = new instanceProduct(p);
+                        //shoppingCart(aux, code, 0, p);
+                        carrito.add(producto);
+            
 
-                    if(aux.equals(code) && dao.search(p.getCodigo())){
+                        refreshTable(producto);
                         
-                        carrito.add(p);
-                        carrito.get(0).setCant(1);
-                        refreshTable();
-
                     }
                 }
                 aux="";
             }
             else{
                 for(Producto p:lista){
-                    int size = carrito.size();
-                    int ite =0;
+                              
+                    //shoppingCart(aux, p.getCodigo().toString(), 1, p);
+                    
                     int i=0;
+                    int size = carrito.size();
                     
                     while(i<size){
-                        String code = carrito.get(i).getCodigo().toString();
-                        
-                        if(aux.equals(code)){
-                            System.out.println("aqui");
-                            count = carrito.get(i).getCant();
-                            count++;
-                            carrito.get(i).setCant(count);
-                            refreshTable();
-                            aux="";
-                            i++;
-                        }
-                        else{
+                                           
+                        if(carrito.get(i).getCodigo().toString().equals(aux)){
                             
+                            carrito.get(i).aumentar();
+                            
+                            
+                            refreshTable(carrito.get(i));
+                            aux="";
+                            i=size+1;
+
+                        }
+                        else{     
                             String code2 = p.getCodigo().toString();
                             
-                            System.out.println(code2);
-                            System.out.println(aux);
-                            System.out.println("");
                             if(aux.equals(code2) && dao.search(p.getCodigo())){
-                                System.out.println("aquiii");
-                                carrito.add(p);
-                                carrito.get(i).setCant(1);
-                                refreshTable();
+                                instanceProduct producto = new instanceProduct(p);
+                                carrito.add(producto);
+
+                                
+                                refreshTable(producto);
                                 aux="";
-                                i++;
+                                i=size+1;
                             }
                             else{
                                 i++;
                             }
                         }
+                        
                     }
-                    
-                    /*for(i=0 ; i<=size ; i++){
-                        String code = carrito.get(i).getCodigo().toString();
- 
-                        if(aux.equals(code)){
-                            System.out.println("aqui");
-                            count = carrito.get(i).getCant();
-                            count++;
-
-                            carrito.get(i).setCant(count);
-                            refreshTable();
-                            ite=1;
-                            
-                            
-                        }
-                        else{
-                            code = p.getCodigo().toString();
-                                if(ite==0 && aux.equals(code)){
-
-                                carrito.add(p);
-                                carrito.get(i).setCant(1);
-
-                                refreshTable();
-                                size=i+1;
-                                aux="";
-
-                                }
-
-
-                        }
-
-                       break; 
-                    }*/
                 }
-                
+                aux="";
             }
-            
-
-            /*for(Producto p :lista){
-
-                String code = p.getCodigo().toString();
-
-                if(aux.equals(code) && dao.search(p.getCodigo())){
-                    carrito.add(p);
-                    refreshTable();
-                    
-                }
-            }
-            aux="";*/
         }
         
     
     }
  
+    
+    /*public void shoppingCart(String scanCode, String dbCode, int x, Producto p){
+        
+        if(x == 0){
+            carrito.add(p);
+            
+            //System.out.println(carrito.get(0).getName());
+            refreshTable();
+            hash.put(scanCode, count);                        
+            
+        }
+        else{
+            for(Entry<String, Integer> valor : hash.entrySet()){
+                if(valor.getKey().equals(scanCode) && scanCode.equals(dbCode)){
+                    
+                    //System.out.println("aqui");
+                    hash.put(scanCode, valor.getValue() +1);
+                    refreshTable();
+                }
+                else{
+                    
+                    if(scanCode.equals(dbCode)&& dao.search(p.getCodigo())){
+                       // System.out.println("aca");
+                        carrito.add(p);
+                        hash.put(scanCode, count);                        
+                        refreshTable();
+                    }
+                }
+                
+            }
+            System.out.println("");
+        }
+        
+        
+    }*/
+    
+    
+    
+    @FXML
+    void addProduct(ActionEvent event){
+        String code = txtbarCode.getText();
+        String cant = txtCant.getText();
+        
+        if(code.equals("")){
+            //JOptionPane.showConfirmDialog(null, "Falta que escriba el codigo de barras.");    
+               
+        }
+        if(cant.equals("")){
+            //JOptionPane.showConfirmDialog(null, "Falta que escriba la cantidad de productos."); 
+        }
+        else{
+            for(Producto p :lista){
+                String aux = p.getCodigo().toString();
+                if(aux.equals(code) && dao.search(p.getCodigo())){ 
+                    instanceProduct producto = new instanceProduct(p);
+                    carrito.add(producto);
+                    int x = Integer.parseInt(cant);
+                    
+                    //refreshTable();
+                    txtbarCode.setText("");
+                    txtCant.setText("");
+                }
+            }
+        }
+        
+    }
+    
     @FXML
     void cashier(ActionEvent event){
         Node source = (Node) event.getSource();

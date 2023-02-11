@@ -12,7 +12,7 @@ import java.math.BigInteger;
  * @author ramir
  */
 public class instanceProduct {
-        private int id;
+    private int id;
     private String name;
     private int precio;
     private BigInteger codigo;
@@ -28,6 +28,7 @@ public class instanceProduct {
     }
 
     public instanceProduct() {
+        this.cant = cant;
     }
     
     

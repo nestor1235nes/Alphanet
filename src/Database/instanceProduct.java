@@ -17,6 +17,8 @@ public class instanceProduct {
     private int precio;
     private BigInteger codigo;
     private int cant;
+    private int total = 0;
+    
 
     public instanceProduct(Producto p) {
 
@@ -28,7 +30,7 @@ public class instanceProduct {
     }
 
     public instanceProduct() {
-        this.cant = cant;
+
     }
     
     
@@ -74,6 +76,14 @@ public class instanceProduct {
     
     public void aumentar (){
         cant++;
+    }
+    
+    public void precioTotal(int nuevo){
+        
+        total = total + nuevo;
+    }
+    public int getTotalPrice(){
+        return total;
     }
 
     @Override

@@ -56,6 +56,8 @@ public class ViewPrincipalController implements Initializable {
     ObservableList<Producto> lista;
     ObservableList<instanceProduct> carrito=FXCollections.observableArrayList();;
     String aux = "";  
+    int total=0;
+    int y = 1;
     
     int id;
 
@@ -80,7 +82,8 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     private TextField txtCant;
     
-
+    @FXML 
+    private TextField totalPrice;
     
     @FXML
     private AnchorPane scanCode;
@@ -128,8 +131,13 @@ public class ViewPrincipalController implements Initializable {
                     String code = p.getCodigo().toString();
                     if(aux.equals(code) && dao.search(p.getCodigo())){ 
                         instanceProduct producto = new instanceProduct(p);
+                        producto.precioTotal(0);
                         carrito.add(producto);
-                        refreshTable(producto);                        
+                        total = carrito.get(0).getPrecio();
+                        totalPrice.setText(Integer.toString(total));
+                        
+                        refreshTable(producto);          
+
                     }
                 }
                 aux="";
@@ -140,7 +148,10 @@ public class ViewPrincipalController implements Initializable {
                     int size = carrito.size();                    
                     while(i<size){                                          
                         if(carrito.get(i).getCodigo().toString().equals(aux)){                          
-                            carrito.get(i).aumentar();                     
+                            carrito.get(i).aumentar();
+                            
+                            total = total + carrito.get(i).getPrecio();
+                            totalPrice.setText(Integer.toString(total));
                             refreshTable(carrito.get(i));
                             aux="";
                             i=size+1;
@@ -150,8 +161,11 @@ public class ViewPrincipalController implements Initializable {
                             if(aux.equals(code2) && dao.search(p.getCodigo())){
                                 instanceProduct producto = new instanceProduct(p);
                                 carrito.add(producto);
+                                total = total + carrito.get(i+y).getPrecio();
+                                totalPrice.setText(Integer.toString(total));
                                 refreshTable(producto);
                                 aux="";
+                                y++;
                                 i=size+1;
                             }
                             else{

@@ -24,6 +24,8 @@ public class ViewCashController implements Initializable {
     
     int monCliente=0;
     int vuelto=0;
+    int total;
+    
     
     @FXML
     private TextField txtmontoCliente;
@@ -35,6 +37,8 @@ public class ViewCashController implements Initializable {
     void montoCliente(ActionEvent event){
         monCliente = Integer.parseInt(txtmontoCliente.getText());
         System.out.println(monCliente);
+        
+        Vuelto();
         
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -48,12 +52,16 @@ public class ViewCashController implements Initializable {
         stage.close();
     }
     
-    /*public void Vuelto(int precioTotal){
-        vuelto = monCliente - precioTotal;
+    public void Vuelto(){
+        ViewPrincipalController valor = new ViewPrincipalController();
+        int x = valor.getTotal();
+        System.out.println(x);
+        vuelto = monCliente - x;
         if(vuelto > 0){
             System.out.println("Su vuelto es: " + vuelto);
         }
-    }*/
+    }
+    
     /**
      * Initializes the controller class.
      */

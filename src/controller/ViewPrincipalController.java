@@ -40,6 +40,7 @@ import javafx.scene.input.KeyCode;
 import static javafx.scene.input.KeyCode.ENTER;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -61,6 +62,20 @@ public class ViewPrincipalController implements Initializable {
     
     int id;
 
+    
+    
+    @FXML
+    private Button btnCancel;
+    
+    @FXML
+    private Button btnAmount;
+    
+    @FXML 
+    private TextField txtClientAmount;
+    
+    @FXML
+    private Pane paneCash;
+    
     @FXML
     private Button manageButton;
     
@@ -131,7 +146,6 @@ public class ViewPrincipalController implements Initializable {
                     String code = p.getCodigo().toString();
                     if(aux.equals(code) && dao.search(p.getCodigo())){ 
                         instanceProduct producto = new instanceProduct(p);
-                        producto.precioTotal(0);
                         carrito.add(producto);
                         total = carrito.get(0).getPrecio();
                         totalPrice.setText(Integer.toString(total));
@@ -180,6 +194,10 @@ public class ViewPrincipalController implements Initializable {
         } 
     }
     
+    public int getTotal(){
+        return total;
+    }
+    
     @FXML
     void addProduct(ActionEvent event){
         
@@ -209,7 +227,8 @@ public class ViewPrincipalController implements Initializable {
                             for(int j=1; j<x ; j++){
                                 carrito.get(i).aumentar();
                             }
-                            
+                            total = total + (x*carrito.get(i).getPrecio());
+                            totalPrice.setText(Integer.toString(total));
                             refreshTable(carrito.get(i));
                             i=size+1;
 
@@ -258,18 +277,44 @@ public class ViewPrincipalController implements Initializable {
         
     }
     
+    
+    
     @FXML 
     void cash(ActionEvent event){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewCash.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Principal");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        paneCash.setVisible(true);
+        
+    }  
+    @FXML
+    void cancel (ActionEvent event ){
+        paneCash.setVisible(false);
     }
+    @FXML
+    void amount(ActionEvent event){
+        String monto = txtClientAmount.getText();
+        if(txtClientAmount.getText().equals("")){
+            JOptionPane.showConfirmDialog(null, "Ingrese monto pagado por cliente.");
+        }
+        else{
+            int dinero = Integer.parseInt(monto);
+            dinero = dinero - total;
+            JOptionPane.showConfirmDialog(null, "El vuelto es de: $" + dinero +"." );
+            paneCash.setVisible(false);
+            for (int i = carrito.size()-1; i >=0 ; i--) {
+                
+                carrito.remove(i);
+            }
+            txtClientAmount.setText("");
+            total = 0;
+            totalPrice.setText("");
+            instanceProduct producto = new instanceProduct(p);
+            refreshTable(producto);
+        }
+
+    }
+    
+    
+    
     
     @FXML
     void manual(ActionEvent event){

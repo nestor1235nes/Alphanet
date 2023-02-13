@@ -5,9 +5,13 @@
  */
 package Database;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -93,5 +97,19 @@ public class daoProducto {
         } catch (SQLException ex) {
             return false;
         } 
+    }
+    
+    public boolean search(BigInteger codigo){
+        try {
+            String sql = "SELECT * FROM productos WHERE codigo=?";
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ps.setBigDecimal(1, new BigDecimal(codigo));
+            ps.execute();
+            ps.close();
+            ps = null;
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
 }

@@ -22,7 +22,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -49,7 +48,7 @@ public class ViewLoginController implements Initializable {
     
     @FXML
     void eventAction(ActionEvent event) {    
-        try {  
+        try {   
             cx = new Conexion();
             cx.conectar();
             String user = txtUser.getText();

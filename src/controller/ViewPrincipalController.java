@@ -6,24 +6,19 @@
 package controller;
 
 import Database.Producto;
+import Database.Venta;
 import Database.daoProducto;
+import Database.daoVenta;
 import Database.instanceProduct;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Map.Entry;
-import static java.util.Objects.hash;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,10 +29,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import static javafx.scene.input.KeyCode.ENTER;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -54,6 +47,7 @@ public class ViewPrincipalController implements Initializable {
     
     Producto p;
     daoProducto dao = new daoProducto();
+    daoVenta daoV = new daoVenta();
     ObservableList<Producto> lista;
     ObservableList<instanceProduct> carrito = FXCollections.observableArrayList();
     String aux = "";  
@@ -310,14 +304,13 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     void addVenta() {
         Venta v = new Venta();
-        p.setName(nameField.getText());
-        p.setPrecio(Integer.parseInt(priceField.getText()));
-        p.setCodigo(new BigInteger(codeField.getText()));
-        if (!dao.create(p)) {
-            JOptionPane.showMessageDialog(null, "No se inserto el producto");
+        v.setIdvendedor(id);
+        v.setNumeroserie(total);
+        v.setFecha(new Date());
+        v.setMonto(total);
+        if (!daoV.create(v)) {
+            JOptionPane.showMessageDialog(null, "No se guardó la venta");
         }
-        refreshTable();
-        cleanTextField();
     }
     
     @FXML

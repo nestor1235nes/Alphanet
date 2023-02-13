@@ -4,14 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ViewPrincipalController">
+<AnchorPane id="AnchorPane" fx:id="scanCode" onKeyReleased="#enterTyped" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewPrincipalController">
    <children>
       <AnchorPane layoutY="283.0" prefHeight="9.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
       <AnchorPane layoutY="250.0" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
@@ -46,24 +50,26 @@
       <Button fx:id="cashPayment" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="551.0" layoutY="386.0" mnemonicParsing="false" onAction="#cash" prefHeight="40.0" prefWidth="142.0" text="Pago Efectivo" wrapText="true">
          <font>
             <Font name="Arial Bold" size="13.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <Button fx:id="btnpayCard" alignment="CENTER_RIGHT" layoutX="552.0" layoutY="435.0" mnemonicParsing="false" onAction="#payCard" prefHeight="40.0" prefWidth="142.0" text="Pago Tarjeta">
          <font>
             <Font name="Arial Bold" size="13.0" />
-         </font></Button>
-      <Button fx:id="addManual" layoutX="29.0" layoutY="71.0" mnemonicParsing="false" onAction="#manual" text="Ingresar producto manual">
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <Button layoutX="576.0" layoutY="83.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="97.0" text="Cuadrar caja">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font></Button>
-      <Button layoutX="231.0" layoutY="71.0" mnemonicParsing="false" text="Cuadrar caja">
-         <font>
-            <Font name="Arial Bold" size="13.0" />
-         </font></Button>
-      <TableView layoutX="22.0" layoutY="113.0" prefHeight="382.0" prefWidth="519.0">
+      <TableView fx:id="shoppingTable" layoutX="22.0" layoutY="113.0" prefHeight="382.0" prefWidth="519.0">
         <columns>
-            <TableColumn prefWidth="75.0" text="Cant." />
-          <TableColumn prefWidth="353.0" text="Nombre del producto" />
-          <TableColumn prefWidth="90.0" text="Precio" />
+            <TableColumn fx:id="cantCol" prefWidth="63.0" text="Cant." />
+          <TableColumn fx:id="nameCol" prefWidth="365.0" text="Nombre del producto" />
+          <TableColumn fx:id="priceCol" prefWidth="90.0" text="Precio" />
         </columns>
       </TableView>
       <Label layoutX="569.0" layoutY="307.0" text="Total a Pagar:">
@@ -71,15 +77,6 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="558.0" layoutY="327.0" prefHeight="49.0" prefWidth="129.0">
-         <children>
-            <Text layoutX="4.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" wrappingWidth="20.0">
-               <font>
-                  <Font name="Arial Bold" size="13.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
       <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="560.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/639365.png" />
@@ -90,5 +87,83 @@
             <Image url="@../Images/147258.png" />
          </image>
       </ImageView>
+      <Text layoutX="27.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agrega producto manual">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtbarCode" layoutX="207.0" layoutY="71.0">
+         <effect>
+            <InnerShadow />
+         </effect></TextField>
+      <Text layoutX="236.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo de barras">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Text>
+      <TextField fx:id="txtCant" layoutX="375.0" layoutY="71.0" prefHeight="25.0" prefWidth="49.0">
+         <effect>
+            <InnerShadow />
+         </effect></TextField>
+      <Text layoutX="375.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font></Text>
+      <Button fx:id="btnaddProduct" layoutX="438.0" layoutY="71.0" mnemonicParsing="false" onAction="#addProduct" text="Agregar">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <TextField fx:id="totalPrice" alignment="CENTER_RIGHT" layoutX="564.0" layoutY="326.0" prefHeight="43.0" prefWidth="115.0">
+         <font>
+            <Font name="Arial Bold" size="24.0" />
+         </font>
+      </TextField>
+      <Text layoutX="564.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Text>
+      <Pane fx:id="paneCash" layoutX="138.0" layoutY="88.0" prefHeight="238.0" prefWidth="408.0" style="-fx-background-color: #f3f3f3;" visible="false">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <ImageView fitHeight="238.0" fitWidth="258.0" layoutX="85.0" opacity="0.13" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/efectivo.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="102.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Monto Pagado por el cliente ">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtClientAmount" layoutX="117.0" layoutY="93.0">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
+            </TextField>
+            <Button fx:id="btnAmount" layoutX="74.0" layoutY="161.0" mnemonicParsing="false" onAction="#amount" style="-fx-background-color: #32454c;" text="Ingresar monto" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect></Button>
+            <Button fx:id="btnCancel" layoutX="250.0" layoutY="161.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="Cancelar" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect></Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -18,6 +18,7 @@ public class Producto {
     private BigInteger codigo;
 
     public Producto(int id, String name, int precio, BigInteger codigo) {
+
         this.id = id;
         this.name = name;
         this.precio = precio;
@@ -25,7 +26,9 @@ public class Producto {
     }
 
     public Producto() {
-    } 
+    }
+    
+    
     
     public BigInteger getCodigo() {
         return codigo;
@@ -61,6 +64,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", name=" + name + ", precio=" + precio + '}';
+        return "Producto{" + "id=" + id + ", name=" + name + ", precio=" + precio + ", cod=" + codigo + '}';
     }   
 }

@@ -55,7 +55,7 @@ public class ViewPrincipalController implements Initializable {
     Producto p;
     daoProducto dao = new daoProducto();
     ObservableList<Producto> lista;
-    ObservableList<instanceProduct> carrito=FXCollections.observableArrayList();;
+    ObservableList<instanceProduct> carrito = FXCollections.observableArrayList();
     String aux = "";  
     int total=0;
     int y = 1;
@@ -221,17 +221,16 @@ public class ViewPrincipalController implements Initializable {
                     
                     int i=0;
                     int size = carrito.size();
-                    while(i<size){
+                    while(i < size){
                         if(carrito.get(i).getCodigo().toString().equals(aux)){
                             
-                            for(int j=1; j<x ; j++){
+                            for(int j = 1; j < x ; j++){
                                 carrito.get(i).aumentar();
                             }
                             total = total + (x*carrito.get(i).getPrecio());
                             totalPrice.setText(Integer.toString(total));
-                            refreshTable();
-                            i=size+1;
-
+                            refreshTable(); 
+                            i = size + 1;
                         }
                         else{
                             i++;
@@ -280,15 +279,15 @@ public class ViewPrincipalController implements Initializable {
     
     
     @FXML 
-    void cash(ActionEvent event){
-        
-        paneCash.setVisible(true);
-        
+    void cash(ActionEvent event){     
+        paneCash.setVisible(true);  
     }  
+    
     @FXML
     void cancel (ActionEvent event ){
         paneCash.setVisible(false);
     }
+    
     @FXML
     void amount(ActionEvent event){
         String monto = txtClientAmount.getText();
@@ -300,20 +299,26 @@ public class ViewPrincipalController implements Initializable {
             dinero = dinero - total;
             JOptionPane.showConfirmDialog(null, "El vuelto es de: $" + dinero +"." );
             paneCash.setVisible(false);
-            for (int i = carrito.size()-1; i >=0 ; i--) {
-                
-                carrito.remove(i);
-            }
+            carrito = FXCollections.observableArrayList();
             txtClientAmount.setText("");
             total = 0;
             totalPrice.setText("");
             refreshTable();
         }
-
     }
     
-    
-    
+    @FXML
+    void addVenta() {
+        Venta v = new Venta();
+        p.setName(nameField.getText());
+        p.setPrecio(Integer.parseInt(priceField.getText()));
+        p.setCodigo(new BigInteger(codeField.getText()));
+        if (!dao.create(p)) {
+            JOptionPane.showMessageDialog(null, "No se inserto el producto");
+        }
+        refreshTable();
+        cleanTextField();
+    }
     
     @FXML
     void manual(ActionEvent event){

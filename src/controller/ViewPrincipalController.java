@@ -116,7 +116,7 @@ public class ViewPrincipalController implements Initializable {
     private TableColumn<instanceProduct, Integer> priceCol;
       
     
-    public void refreshTable(instanceProduct product){        
+    public void refreshTable(){        
         cantCol.setCellValueFactory(new PropertyValueFactory<>("cant"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("precio"));
@@ -150,7 +150,7 @@ public class ViewPrincipalController implements Initializable {
                         total = carrito.get(0).getPrecio();
                         totalPrice.setText(Integer.toString(total));
                         
-                        refreshTable(producto);          
+                        refreshTable();          
 
                     }
                 }
@@ -166,7 +166,7 @@ public class ViewPrincipalController implements Initializable {
                             
                             total = total + carrito.get(i).getPrecio();
                             totalPrice.setText(Integer.toString(total));
-                            refreshTable(carrito.get(i));
+                            refreshTable();
                             aux="";
                             i=size+1;
                         }
@@ -177,7 +177,7 @@ public class ViewPrincipalController implements Initializable {
                                 carrito.add(producto);
                                 total = total + carrito.get(i+y).getPrecio();
                                 totalPrice.setText(Integer.toString(total));
-                                refreshTable(producto);
+                                refreshTable();
                                 aux="";
                                 y++;
                                 i=size+1;
@@ -229,7 +229,7 @@ public class ViewPrincipalController implements Initializable {
                             }
                             total = total + (x*carrito.get(i).getPrecio());
                             totalPrice.setText(Integer.toString(total));
-                            refreshTable(carrito.get(i));
+                            refreshTable();
                             i=size+1;
 
                         }
@@ -307,8 +307,7 @@ public class ViewPrincipalController implements Initializable {
             txtClientAmount.setText("");
             total = 0;
             totalPrice.setText("");
-            instanceProduct producto = new instanceProduct(p);
-            refreshTable(producto);
+            refreshTable();
         }
 
     }

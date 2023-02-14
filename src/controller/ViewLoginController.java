@@ -6,6 +6,7 @@
 package controller;
 
 import Database.Conexion;
+import alphanet.Session;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -22,6 +23,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -33,18 +35,11 @@ public class ViewLoginController implements Initializable {
     Conexion cx;
 
     @FXML
-    private HBox loginWindow;
-    @FXML
     private TextField txtUser;
     @FXML
     private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
-    @FXML
-    private void eventKey(KeyEvent event){
-        
-
-    }
     
     @FXML
     void eventAction(ActionEvent event) {    
@@ -64,12 +59,12 @@ public class ViewLoginController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
                 cx.desconectar();
-            /*if (rs.next()) {
-                
+            if (rs.next()) {
+                Session.getCurrentInstance().setLoggedUser(rs.getInt("id"));
             }
             else{
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-            }*/     
+            }    
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

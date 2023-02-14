@@ -23,6 +23,19 @@ public class daoVenta {
        c = new Conexion();
     }
     
+    /*public String nroSerieVentas(){
+        String serie = "";
+        String sql = "SELECT max(numeroserie) from ventas";
+        try {
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                serie = rs.getString(1);
+            }
+        } catch (Exception e) {
+        }
+    }*/
+    
     public boolean create(Venta v){
         try {
             String sql = "INSERT INTO ventas(idvendedor,numeroserie,fecha,monto) VALUES(?,?,?,?,?)";

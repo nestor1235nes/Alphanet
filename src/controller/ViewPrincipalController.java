@@ -10,6 +10,7 @@ import Database.Venta;
 import Database.daoProducto;
 import Database.daoVenta;
 import Database.instanceProduct;
+import alphanet.Session;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -53,8 +54,8 @@ public class ViewPrincipalController implements Initializable {
     String aux = "";  
     int total=0;
     int y = 1;
-    
     int id;
+    int user = Session.getCurrentInstance().getLoggedUser();
 
     
     
@@ -289,6 +290,7 @@ public class ViewPrincipalController implements Initializable {
             JOptionPane.showConfirmDialog(null, "Ingrese monto pagado por cliente.");
         }
         else{
+            addVenta();
             int dinero = Integer.parseInt(monto);
             dinero = dinero - total;
             JOptionPane.showConfirmDialog(null, "El vuelto es de: $" + dinero +"." );
@@ -304,8 +306,8 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     void addVenta() {
         Venta v = new Venta();
-        v.setIdvendedor(id);
-        v.setNumeroserie(total);
+        v.setIdvendedor(user);
+        v.setNumeroserie(1);
         v.setFecha(new Date());
         v.setMonto(total);
         if (!daoV.create(v)) {

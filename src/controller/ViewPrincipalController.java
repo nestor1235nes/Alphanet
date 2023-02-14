@@ -307,7 +307,7 @@ public class ViewPrincipalController implements Initializable {
     void addVenta() {
         Venta v = new Venta();
         v.setIdvendedor(user);
-        v.setNumeroserie(1);
+        v.setNumeroserie(651);
         v.setFecha(new Date());
         v.setMonto(total);
         if (!daoV.create(v)) {

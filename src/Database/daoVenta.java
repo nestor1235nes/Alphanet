@@ -38,11 +38,11 @@ public class daoVenta {
     
     public boolean create(Venta v){
         try {
-            String sql = "INSERT INTO ventas(idvendedor,numeroserie,fecha,monto) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO ventas(idvendedor,numeroserie,fecha,monto) VALUES(?,?,?,?)";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setInt(1, v.getIdvendedor());
             ps.setInt(2, v.getNumeroserie());
-            ps.setDate(3, (Date) v.getFecha());   
+            ps.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));   
             ps.setInt(4, v.getMonto());
             ps.execute();
             ps.close();
@@ -50,6 +50,7 @@ public class daoVenta {
             c.desconectar();
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

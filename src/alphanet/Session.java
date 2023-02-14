@@ -20,7 +20,7 @@ public final class Session {
         if (session == null) {
             session = new Session();
         }
-        return null;
+        return session;
     }
 
     public void setLoggedUser(int username) {

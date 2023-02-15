@@ -6,24 +6,20 @@
 package controller;
 
 import Database.Producto;
+import Database.Venta;
 import Database.daoProducto;
+import Database.daoVenta;
 import Database.instanceProduct;
+import alphanet.Session;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Map.Entry;
-import static java.util.Objects.hash;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,10 +30,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import static javafx.scene.input.KeyCode.ENTER;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -54,13 +48,14 @@ public class ViewPrincipalController implements Initializable {
     
     Producto p;
     daoProducto dao = new daoProducto();
+    daoVenta daoV = new daoVenta();
     ObservableList<Producto> lista;
-    ObservableList<instanceProduct> carrito=FXCollections.observableArrayList();;
+    ObservableList<instanceProduct> carrito = FXCollections.observableArrayList();
     String aux = "";  
     int total=0;
     int y = 1;
-    
     int id;
+    int user = Session.getCurrentInstance().getLoggedUser();
 
     
     
@@ -222,17 +217,16 @@ public class ViewPrincipalController implements Initializable {
                     
                     int i=0;
                     int size = carrito.size();
-                    while(i<size){
+                    while(i < size){
                         if(carrito.get(i).getCodigo().toString().equals(aux)){
                             
-                            for(int j=1; j<x ; j++){
+                            for(int j = 1; j < x ; j++){
                                 carrito.get(i).aumentar();
                             }
                             total = total + (x*carrito.get(i).getPrecio());
                             totalPrice.setText(Integer.toString(total));
-                            refreshTable();
-                            i=size+1;
-
+                            refreshTable(); 
+                            i = size + 1;
                         }
                         else{
                             i++;
@@ -281,15 +275,15 @@ public class ViewPrincipalController implements Initializable {
     
     
     @FXML 
-    void cash(ActionEvent event){
-        
-        paneCash.setVisible(true);
-        
+    void cash(ActionEvent event){     
+        paneCash.setVisible(true);  
     }  
+    
     @FXML
     void cancel (ActionEvent event ){
         paneCash.setVisible(false);
     }
+    
     @FXML
     void amount(ActionEvent event){
         String monto = txtClientAmount.getText();
@@ -298,6 +292,7 @@ public class ViewPrincipalController implements Initializable {
             JOptionPane.showOptionDialog(null, "Ingrese monto pagado por cliente.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");  
         }
         else{
+            addVenta();
             int dinero = Integer.parseInt(monto);
             dinero = dinero - total;
             
@@ -324,11 +319,19 @@ public class ViewPrincipalController implements Initializable {
             }
             
         }
-
     }
     
-    
-    
+    @FXML
+    void addVenta() {
+        Venta v = new Venta();
+        v.setIdvendedor(user);
+        v.setNumeroserie(651);
+        v.setFecha(new Date());
+        v.setMonto(total);
+        if (!daoV.create(v)) {
+            JOptionPane.showMessageDialog(null, "No se guardó la venta");
+        }
+    }
     
     @FXML
     void manual(ActionEvent event){

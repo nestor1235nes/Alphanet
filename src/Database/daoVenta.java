@@ -5,72 +5,70 @@
  */
 package Database;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.math.BigInteger;
 
 /**
  *
  * @author Gama
  */
-public class daoProducto {
+public class daoVenta {
     Conexion c;
     
-    public daoProducto(){
+    public daoVenta(){
        c = new Conexion();
     }
     
-    public boolean create(Producto p){
+    /*public String nroSerieVentas(){
+        String serie = "";
+        String sql = "SELECT max(numeroserie) from ventas";
         try {
-            String sql = "INSERT INTO productos(nombre,precio,codigo) VALUES(?,?,?)";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setString(1, p.getName());
-            ps.setInt(2, p.getPrecio());
-            ps.setObject(3, p.getCodigo());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                serie = rs.getString(1);
+            }
+        } catch (Exception e) {
+        }
+    }*/
+    
+    public boolean create(Venta v){
+        try {
+            String sql = "INSERT INTO ventas(idvendedor,numeroserie,fecha,monto) VALUES(?,?,?,?)";
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ps.setInt(1, v.getIdvendedor());
+            ps.setInt(2, v.getNumeroserie());
+            ps.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));   
+            ps.setInt(4, v.getMonto());
             ps.execute();
             ps.close();
             ps = null;
             c.desconectar();
             return true;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
     
-    public boolean search(BigInteger codigo){
+    public ObservableList<Venta> read(){
+        ObservableList<Venta> lista = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM productos WHERE codigo=?";
-            PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setBigDecimal(1, new BigDecimal(codigo));
-            ps.execute();
-            ps.close();
-            ps = null;
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
-    }
-    
-    public ObservableList<Producto> read(){
-        ObservableList<Producto> lista = FXCollections.observableArrayList();
-        try {
-            String sql = "SELECT * FROM productos";
+            String sql = "SELECT * FROM ventas";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Producto p = new Producto();
-                p.setId(rs.getInt("id"));
-                p.setName(rs.getString("nombre"));
-                p.setPrecio(rs.getInt("precio"));
-                p.setCodigo(rs.getBigDecimal("codigo").toBigInteger());
-                lista.add(p);
+                Venta v = new Venta();
+                v.setId(rs.getInt("id"));
+                v.setIdvendedor(rs.getInt("idvendedor"));
+                v.setNumeroserie(rs.getInt("numeroserie"));
+                v.setFecha(rs.getDate("fecha"));
+                v.setMonto(rs.getInt("monto"));
+                lista.add(v);
             }
             ps.close();
             ps = null;
@@ -83,7 +81,7 @@ public class daoProducto {
     
     public boolean delete(int id){
         try {
-            String sql = "DELETE FROM productos WHERE id=?";
+            String sql = "DELETE FROM ventas WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
@@ -96,20 +94,21 @@ public class daoProducto {
         }   
     }
     
-    public boolean update(Producto p){
+    public boolean update(Venta v){
         try {
-            String sql = "UPDATE productos SET nombre=?,precio=?,codigo=? WHERE id=?";
+            String sql = "UPDATE ventas SET idvendedor=?,numeroserie=?,fecha=?,monto=? WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setString(1, p.getName());
-            ps.setInt(2, p.getPrecio());
-            ps.setObject(3, p.getCodigo());
-            ps.setInt(4, p.getId());
+            ps.setInt(1, v.getIdvendedor());
+            ps.setInt(2, v.getNumeroserie());
+            ps.setDate(3, (Date) v.getFecha());
+            ps.setInt(1, v.getMonto());
             ps.execute();
             ps.close();
             ps = null;
             c.desconectar();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return false;
         } 
     }

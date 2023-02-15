@@ -116,7 +116,7 @@ public class ViewPrincipalController implements Initializable {
     private TableColumn<instanceProduct, Integer> priceCol;
       
     
-    public void refreshTable(instanceProduct product){        
+    public void refreshTable(){        
         cantCol.setCellValueFactory(new PropertyValueFactory<>("cant"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("precio"));
@@ -150,7 +150,7 @@ public class ViewPrincipalController implements Initializable {
                         total = carrito.get(0).getPrecio();
                         totalPrice.setText(Integer.toString(total));
                         
-                        refreshTable(producto);          
+                        refreshTable();          
 
                     }
                 }
@@ -166,7 +166,7 @@ public class ViewPrincipalController implements Initializable {
                             
                             total = total + carrito.get(i).getPrecio();
                             totalPrice.setText(Integer.toString(total));
-                            refreshTable(carrito.get(i));
+                            refreshTable();
                             aux="";
                             i=size+1;
                         }
@@ -177,7 +177,7 @@ public class ViewPrincipalController implements Initializable {
                                 carrito.add(producto);
                                 total = total + carrito.get(i+y).getPrecio();
                                 totalPrice.setText(Integer.toString(total));
-                                refreshTable(producto);
+                                refreshTable();
                                 aux="";
                                 y++;
                                 i=size+1;
@@ -194,9 +194,6 @@ public class ViewPrincipalController implements Initializable {
         } 
     }
     
-    public int getTotal(){
-        return total;
-    }
     
     @FXML
     void addProduct(ActionEvent event){
@@ -205,11 +202,15 @@ public class ViewPrincipalController implements Initializable {
         String cant = txtCant.getText();
         
         if(code.equals("")){
-            JOptionPane.showConfirmDialog(null, "Falta que escriba el codigo de barras.");    
+            String [] opcion = {"Aceptar"};
+            
+            JOptionPane.showOptionDialog(null, "Falta que escriba el codigo de barras del producto.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");    
                
         }
         if(cant.equals("")){
-            JOptionPane.showConfirmDialog(null, "Falta que escriba la cantidad de productos."); 
+            String [] opcion = {"Aceptar"};
+            
+            JOptionPane.showOptionDialog(null, "Falta que escriba la cantidad del producto.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar"); 
         }
         else{
             for(Producto p :lista){
@@ -229,7 +230,7 @@ public class ViewPrincipalController implements Initializable {
                             }
                             total = total + (x*carrito.get(i).getPrecio());
                             totalPrice.setText(Integer.toString(total));
-                            refreshTable(carrito.get(i));
+                            refreshTable();
                             i=size+1;
 
                         }
@@ -293,22 +294,35 @@ public class ViewPrincipalController implements Initializable {
     void amount(ActionEvent event){
         String monto = txtClientAmount.getText();
         if(txtClientAmount.getText().equals("")){
-            JOptionPane.showConfirmDialog(null, "Ingrese monto pagado por cliente.");
+            String [] opcion = {"Aceptar"};        
+            JOptionPane.showOptionDialog(null, "Ingrese monto pagado por cliente.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");  
         }
         else{
             int dinero = Integer.parseInt(monto);
             dinero = dinero - total;
-            JOptionPane.showConfirmDialog(null, "El vuelto es de: $" + dinero +"." );
-            paneCash.setVisible(false);
-            for (int i = carrito.size()-1; i >=0 ; i--) {
-                
-                carrito.remove(i);
+            
+            if(dinero>=0){
+                String [] opcion = {"Aceptar"};
+            
+                JOptionPane.showOptionDialog(null, "El vuelto es de: $" + dinero +".", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+
+
+                paneCash.setVisible(false);
+                for (int i = carrito.size()-1; i >=0 ; i--) {
+
+                    carrito.remove(i);
+                }
+                txtClientAmount.setText("");
+                total = 0;
+                totalPrice.setText("");
+                y=1;
+                refreshTable();
             }
-            txtClientAmount.setText("");
-            total = 0;
-            totalPrice.setText("");
-            instanceProduct producto = new instanceProduct(p);
-            refreshTable(producto);
+            else{
+                String [] opcion = {"Aceptar"};      
+                JOptionPane.showOptionDialog(null, "Faltan: $" + (dinero*-1) +" para pagar el/los productos.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+            }
+            
         }
 
     }

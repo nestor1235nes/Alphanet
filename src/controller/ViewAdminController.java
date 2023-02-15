@@ -37,6 +37,25 @@ public class ViewAdminController implements Initializable {
     private Button btnCashier;
     
     @FXML
+    private Button adminSale;
+    
+    @FXML
+    void sale(ActionEvent event){
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewSale.fxml"));
+            stage = new Stage();
+            stage.setTitle("Principal");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
     void product(ActionEvent event){
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();

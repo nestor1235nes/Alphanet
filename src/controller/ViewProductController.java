@@ -48,7 +48,6 @@ public class ViewProductController implements Initializable {
     Producto p;
     daoProducto dao = new daoProducto();
     ObservableList<Producto> lista;
-    int id;
     
     @FXML
     private TableColumn<Producto, String> codeCol;
@@ -108,10 +107,14 @@ public class ViewProductController implements Initializable {
     
     @FXML
     void clickProduct(MouseEvent event) {
-        p = productTable.getSelectionModel().getSelectedItem();
-        nameField.setText(p.getName());
-        priceField.setText(Integer.toString(p.getPrecio()));
-        codeField.setText(""+p.getCodigo());
+        try {
+            p = productTable.getSelectionModel().getSelectedItem();
+            nameField.setText(p.getName());
+            priceField.setText(Integer.toString(p.getPrecio()));
+            codeField.setText(""+p.getCodigo());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }    
     }
 
     @FXML
@@ -127,8 +130,7 @@ public class ViewProductController implements Initializable {
                 JOptionPane.showMessageDialog(null, "No se elimino el registro");
             }
             refreshTable();
-        }
-        
+        }  
     }
 
     @FXML
@@ -152,7 +154,7 @@ public class ViewProductController implements Initializable {
             p.add(Chunk.NEWLINE);
             p.setAlignment(Element.ALIGN_CENTER);
             doc.add(p);
-            PdfPTable tabla = new PdfPTable(4 );
+            PdfPTable tabla = new PdfPTable(4);
             tabla.setWidthPercentage(100);
             PdfPCell c1 = new PdfPCell(new Phrase("ID", negrita));
             PdfPCell c2 = new PdfPCell(new Phrase("NOMBRE", negrita));
@@ -175,6 +177,7 @@ public class ViewProductController implements Initializable {
                 tabla.addCell(""+product.getId());
                 tabla.addCell(product.getName());
                 tabla.addCell(""+product.getPrecio());
+                tabla.addCell(""+product.getCodigo());
             }
             doc.add(tabla);
             p = new Paragraph(10);

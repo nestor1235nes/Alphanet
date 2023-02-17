@@ -5,35 +5,30 @@
  */
 package Database;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.math.BigInteger;
 
 /**
  *
  * @author Gama
  */
-public class daoProducto {
+public class daoUsuario {
     Conexion c;
     
-    public daoProducto(){
+    public daoUsuario(){
        c = new Conexion();
     }
     
-    public boolean create(Producto p){
+    public boolean create(Usuario u){
         try {
-            String sql = "INSERT INTO productos(nombre,precio,codigo) VALUES(?,?,?)";
+            String sql = "INSERT INTO usuarios(nombre,usuario,pass) VALUES(?,?,?)";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setString(1, p.getName());
-            ps.setInt(2, p.getPrecio());
-            ps.setObject(3, p.getCodigo());
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getUsuario());
+            ps.setString(3, u.getPass());
             ps.execute();
             ps.close();
             ps = null;
@@ -44,33 +39,19 @@ public class daoProducto {
         }
     }
     
-    public boolean search(BigInteger codigo){
+    public ObservableList<Usuario> read(){
+        ObservableList<Usuario> lista = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM productos WHERE codigo=?";
-            PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setBigDecimal(1, new BigDecimal(codigo));
-            ps.execute();
-            ps.close();
-            ps = null;
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
-    }
-    
-    public ObservableList<Producto> read(){
-        ObservableList<Producto> lista = FXCollections.observableArrayList();
-        try {
-            String sql = "SELECT * FROM productos";
+            String sql = "SELECT * FROM usuarios";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Producto p = new Producto();
-                p.setId(rs.getInt("id"));
-                p.setName(rs.getString("nombre"));
-                p.setPrecio(rs.getInt("precio"));
-                p.setCodigo(rs.getBigDecimal("codigo").toBigInteger());
-                lista.add(p);
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id"));
+                u.setNombre(rs.getString("nombre"));
+                u.setUsuario(rs.getString("usuario"));
+                u.setPass(rs.getString("pass"));
+                lista.add(u);
             }
             ps.close();
             ps = null;
@@ -83,7 +64,7 @@ public class daoProducto {
     
     public boolean delete(int id){
         try {
-            String sql = "DELETE FROM productos WHERE id=?";
+            String sql = "DELETE FROM usuarios WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
@@ -96,20 +77,21 @@ public class daoProducto {
         }   
     }
     
-    public boolean update(Producto p){
+    public boolean update(Usuario u){
         try {
-            String sql = "UPDATE productos SET nombre=?,precio=?,codigo=? WHERE id=?";
+            String sql = "UPDATE usuarios SET nombre=?,usuario=?,pass=? WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setString(1, p.getName());
-            ps.setInt(2, p.getPrecio());
-            ps.setObject(3, p.getCodigo());
-            ps.setInt(4, p.getId());
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getUsuario());
+            ps.setString(3, u.getPass());
+            ps.setInt(4, u.getId());
             ps.execute();
             ps.close();
             ps = null;
             c.desconectar();
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             return false;
         } 
     }

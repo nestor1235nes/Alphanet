@@ -6,6 +6,7 @@
 package controller;
 
 import Database.Conexion;
+import alphanet.Session;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -34,29 +35,24 @@ public class ViewLoginController implements Initializable {
     Conexion cx;
 
     @FXML
-    private HBox loginWindow;
-    @FXML
     private TextField txtUser;
     @FXML
     private PasswordField txtPassword;
     @FXML
     private Button btnLogin;
-    @FXML
-    private void eventKey(KeyEvent event){
-        
-
-    }
     
     @FXML
     void eventAction(ActionEvent event) {    
-        try {  
+        try {   
             cx = new Conexion();
             cx.conectar();
             String user = txtUser.getText();
             String pass = txtPassword.getText();
             String query = "SELECT * FROM usuarios WHERE usuario='"+user+"' and pass='"+pass+"'";
             Statement st = cx.conectar().createStatement();
-            ResultSet rs = st.executeQuery(query);
+            ResultSet rs = st.executeQuery(query);    
+            if (rs.next()) {
+                Session.getCurrentInstance().setLoggedUser(rs.getInt("id"));
                 Stage stage = (Stage) btnLogin.getScene().getWindow();
                 stage.close();
                 Parent root = FXMLLoader.load(getClass().getResource("/view/ViewStart.fxml"));
@@ -65,12 +61,10 @@ public class ViewLoginController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
                 cx.desconectar();
-            /*if (rs.next()) {
-                
             }
             else{
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
-            }*/     
+            }    
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

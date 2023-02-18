@@ -141,7 +141,7 @@ public class ViewPrincipalController implements Initializable {
                 cash();
             }
         else
-            if(event.getCode().equals(KeyCode.SHIFT) && paneCash.isVisible()){
+            if(event.getCode().equals(KeyCode.ESCAPE) && paneCash.isVisible()){
                 cancel();
             }
         else
@@ -169,6 +169,20 @@ public class ViewPrincipalController implements Initializable {
                 amount();
 
             }
+        else
+            if(event.getCode().equals(KeyCode.F1)){
+                btnaddProduct.setFocusTraversable(true);
+                addProduct();
+                
+            }
+        else
+            if (event.getCode().equals(KeyCode.F3)) {
+            manage();
+        }
+        else
+            if (event.getCode().equals(KeyCode.F2)) {
+            cashier();
+        }
         
         aux = aux+event.getText();
         try {       
@@ -234,7 +248,7 @@ public class ViewPrincipalController implements Initializable {
     
     
     @FXML
-    void addProduct(ActionEvent event){
+    void addProduct(){
         
         String code = txtbarCode.getText();
         String cant = txtCant.getText();
@@ -284,13 +298,12 @@ public class ViewPrincipalController implements Initializable {
     }
     
     @FXML
-    void cashier(ActionEvent event){
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+    void cashier(){
+        Stage stage = (Stage) this.btnCancel.getScene().getWindow();
         stage.close();
         
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLogin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLog.fxml"));
             stage = new Stage();
             stage.setTitle("Inicio de sesión");
             stage.setScene(new Scene(root));
@@ -320,7 +333,6 @@ public class ViewPrincipalController implements Initializable {
     @FXML 
     void cash(){     
         paneCash.setVisible(true);  
-        //scanCode.toBack();
         paneCash.toFront();
         
     }  
@@ -333,13 +345,18 @@ public class ViewPrincipalController implements Initializable {
     @FXML
     void amount(){
         
-
-        if(txtClientAmount.getText().equals("")){
+        if (carrito.isEmpty()) {
+            String [] opcion = {"Aceptar"};
+                
+            JOptionPane.showOptionDialog(null, "El carrito está vacio", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+        }
+        
+        if(txtClientAmount.getText().equals("") && !carrito.isEmpty()){
 
             
             addVenta();
-            int dinero = 0;
-            dinero = option - total;
+            int dinero = option - total;;
+            
             
             if(dinero>=0){
                 String [] opcion = {"Aceptar"};
@@ -359,36 +376,42 @@ public class ViewPrincipalController implements Initializable {
                 refreshTable();
                 cancel();
             }
-        }
-        
-        else{
-            
-            String monto = txtClientAmount.getText();
-            addVenta();
-            int dinero = Integer.parseInt(monto);
-            dinero = dinero - total;
-            
-            if(dinero>=0){
-                String [] opcion = {"Aceptar"};
-            
-                JOptionPane.showOptionDialog(null, "El vuelto es de: $" + dinero +".", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
-
-
-                paneCash.setVisible(false);
-                for (int i = carrito.size()-1; i >=0 ; i--) {
-
-                    carrito.remove(i);
-                }
-                txtClientAmount.setText("");
-                total = 0;
-                totalPrice.setText("");
-                y=1;
-                refreshTable();
-            }
             else{
                 String [] opcion = {"Aceptar"};      
                 JOptionPane.showOptionDialog(null, "Faltan: $" + (dinero*-1) +" para pagar el/los productos.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
             }
+        }
+        
+        else{
+            if (!carrito.isEmpty()) {
+                String monto = txtClientAmount.getText();
+                addVenta();
+                int dinero = Integer.parseInt(monto);
+                dinero = dinero - total;
+
+                if(dinero>=0){
+                    String [] opcion = {"Aceptar"};
+
+                    JOptionPane.showOptionDialog(null, "El vuelto es de: $" + dinero +".", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+
+
+                    paneCash.setVisible(false);
+                    for (int i = carrito.size()-1; i >=0 ; i--) {
+
+                        carrito.remove(i);
+                    }
+                    txtClientAmount.setText("");
+                    total = 0;
+                    totalPrice.setText("");
+                    y=1;
+                    refreshTable();
+                }
+                else{
+                    String [] opcion = {"Aceptar"};      
+                    JOptionPane.showOptionDialog(null, "Faltan: $" + (dinero*-1) +" para pagar el/los productos.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+                }
+            }
+            
             
         }
     }
@@ -404,22 +427,9 @@ public class ViewPrincipalController implements Initializable {
             JOptionPane.showMessageDialog(null, "No se guardó la venta");
         }
     }
-    
-    @FXML
-    void manual(ActionEvent event){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewaddManual.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Principal");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     @FXML
-    void manage(ActionEvent event) {
+    void manage() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewAdmin.fxml"));
             Stage stage = new Stage();

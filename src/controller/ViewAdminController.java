@@ -18,6 +18,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -40,9 +42,25 @@ public class ViewAdminController implements Initializable {
     private Button adminSale;
     
     @FXML
-    void sale(ActionEvent event){
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+    private void keyPressed(KeyEvent event){
+        if(event.getCode().equals(KeyCode.DIGIT1)){   
+            cashier();
+         }
+        if(event.getCode().equals(KeyCode.DIGIT2)){
+            product();
+        }
+        if(event.getCode().equals(KeyCode.DIGIT3)){
+            sale();           
+        }
+        if(event.getCode().equals(KeyCode.ESCAPE)){
+            cancel();           
+        }
+        
+    }
+    
+    @FXML
+    void sale(){
+        Stage stage = (Stage) this.btnCancel.getScene().getWindow();
         stage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewSale.fxml"));
@@ -56,9 +74,8 @@ public class ViewAdminController implements Initializable {
     }
     
     @FXML
-    void product(ActionEvent event){
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+    void product(){
+        Stage stage = (Stage) this.btnCancel.getScene().getWindow();
         stage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewProduct.fxml"));
@@ -72,9 +89,8 @@ public class ViewAdminController implements Initializable {
     }
     
     @FXML
-    void cashier(ActionEvent event){
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+    void cashier(){
+        Stage stage = (Stage) this.btnCancel.getScene().getWindow();
         stage.close();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewCashier.fxml"));
@@ -90,10 +106,11 @@ public class ViewAdminController implements Initializable {
     
     
     @FXML
-    void cancel(ActionEvent event){
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+    void cancel(){
+        
+        Stage stage = (Stage) this.btnCancel.getScene().getWindow();
         stage.close();
+        
     }
 
     /**

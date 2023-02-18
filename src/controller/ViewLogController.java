@@ -7,7 +7,6 @@ package controller;
 
 import Database.Conexion;
 import alphanet.Session;
-import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -21,7 +20,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -30,8 +30,8 @@ import javax.swing.JOptionPane;
  *
  * @author ramir
  */
-public class ViewLoginController implements Initializable {
-    
+public class ViewLogController implements Initializable {
+
     Conexion cx;
 
     @FXML
@@ -42,7 +42,14 @@ public class ViewLoginController implements Initializable {
     private Button btnLogin;
     
     @FXML
-    void eventAction(ActionEvent event) {    
+    void enter(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            eventAction();
+        }
+    }
+    
+    @FXML
+    void eventAction() {    
         try {   
             cx = new Conexion();
             cx.conectar();
@@ -75,10 +82,6 @@ public class ViewLoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    }    
-
-    @FXML
-    private void eventKey(javafx.scene.input.KeyEvent event) {
-    }
+    }   
     
 }

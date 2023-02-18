@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" onKeyPressed="#enter" prefHeight="500.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.ViewLogController">
+   <children>
+      <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="86.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/Logo.jpg" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Label layoutX="166.0" layoutY="46.0" prefHeight="36.0" prefWidth="90.0" text="ALPHA">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="246.0" layoutY="40.0" prefHeight="47.0" prefWidth="74.0" text="NET">
+         <font>
+            <Font name="Arial Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="123.0" layoutY="101.0" prefHeight="91.0" prefWidth="155.0" text="Inicio de Sesión">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="200.0" text="Usuario" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUser" layoutX="31.0" layoutY="235.0" prefHeight="30.0" prefWidth="340.0">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </TextField>
+      <Label layoutX="31.0" layoutY="282.0" text="Contraseña">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txtPassword" layoutX="30.0" layoutY="318.0" prefHeight="30.0" prefWidth="340.0">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+         <effect>
+            <InnerShadow />
+         </effect>
+      </PasswordField>
+      <Button fx:id="btnLogin" layoutX="157.0" layoutY="390.0" mnemonicParsing="false" onAction="#eventAction" style="-fx-background-color: #32454c;" text="Ingresar" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow height="29.79" radius="18.060000000000002" width="44.45" />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

@@ -46,6 +46,7 @@ import javax.swing.JOptionPane;
  */
 public class ViewPrincipalController implements Initializable {
     
+    
     Producto p;
     daoProducto dao = new daoProducto();
     daoVenta daoV = new daoVenta();
@@ -56,6 +57,8 @@ public class ViewPrincipalController implements Initializable {
     int y = 1;
     int id;
     int user = Session.getCurrentInstance().getLoggedUser();
+    int option;
+    boolean active = false;
 
     
     
@@ -124,9 +127,49 @@ public class ViewPrincipalController implements Initializable {
         }    
     }
     
+    
+    
     @FXML
     private void enterTyped(KeyEvent event){
 
+        if(event.getCode().equals(KeyCode.ENTER) && active == true){
+            active = false;
+        }
+        else
+        
+            if(event.getCode().equals(KeyCode.ENTER) && !paneCash.isVisible()){
+                cash();
+            }
+        else
+            if(event.getCode().equals(KeyCode.SHIFT) && paneCash.isVisible()){
+                cancel();
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT1) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+                option = 1000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT2) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+                option = 5000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT3) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+                option = 10000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT4) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+
+                option = 20000;
+                amount();
+
+            }
+        
         aux = aux+event.getText();
         try {       
             lista = dao.read();
@@ -275,23 +318,52 @@ public class ViewPrincipalController implements Initializable {
     
     
     @FXML 
-    void cash(ActionEvent event){     
+    void cash(){     
         paneCash.setVisible(true);  
+        //scanCode.toBack();
+        paneCash.toFront();
+        
     }  
     
     @FXML
-    void cancel (ActionEvent event ){
+    void cancel (){
         paneCash.setVisible(false);
     }
     
     @FXML
-    void amount(ActionEvent event){
-        String monto = txtClientAmount.getText();
+    void amount(){
+        
+
         if(txtClientAmount.getText().equals("")){
-            String [] opcion = {"Aceptar"};        
-            JOptionPane.showOptionDialog(null, "Ingrese monto pagado por cliente.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");  
+
+            
+            addVenta();
+            int dinero = 0;
+            dinero = option - total;
+            
+            if(dinero>=0){
+                String [] opcion = {"Aceptar"};
+                
+                JOptionPane.showOptionDialog(null, "El vuelto es de: $" + dinero +".", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+                active = true;
+
+
+                for (int i = carrito.size()-1; i >=0 ; i--) {
+
+                    carrito.remove(i);
+                }
+                txtClientAmount.setText("");
+                total = 0;
+                totalPrice.setText("");
+                y=1;
+                refreshTable();
+                cancel();
+            }
         }
+        
         else{
+            
+            String monto = txtClientAmount.getText();
             addVenta();
             int dinero = Integer.parseInt(monto);
             dinero = dinero - total;

@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/Database/daoVenta.java</file>
-            <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/controller/ViewLogController.java</file>
+            <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/controller/ViewProductController.java</file>
             <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/controller/ViewPrincipalController.java</file>
-            <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/view/ViewAdmin.fxml</file>
+            <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/Database/instanceProduct.java</file>
             <file>file:/C:/Users/ramir/OneDrive/Documentos/git/Alphanet/src/controller/ViewStartController.java</file>
         </group>
     </open-files>

@@ -47,6 +47,8 @@ import javax.swing.JOptionPane;
 public class ViewPrincipalController implements Initializable {
     
     
+    
+    
     Producto p;
     daoProducto dao = new daoProducto();
     daoVenta daoV = new daoVenta();
@@ -61,6 +63,8 @@ public class ViewPrincipalController implements Initializable {
     boolean active = false;
 
     
+    @FXML
+    private Button removeProduct;
     
     @FXML
     private Button btnCancel;
@@ -127,14 +131,50 @@ public class ViewPrincipalController implements Initializable {
         }    
     }
     
+    @FXML
+    public void remove(){
+        
+        instanceProduct ip = shoppingTable.getSelectionModel().getSelectedItem();
+        if (ip == null) {
+            
+            String [] opcion = {"Aceptar"};      
+            JOptionPane.showOptionDialog(null, "Se necesita que seleccione un producto a eliminar", "Error", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+            active = true;
+        }
+        else{
+            if(ip.getCant() == 1){
+                carrito.remove(ip);
+                total = total - ip.getPrecio();
+                totalPrice.setText(Integer.toString(total));
+            }
+            else{
+                ip.restar();
+                total = total - ip.getPrecio();
+                totalPrice.setText(Integer.toString(total));
+            }
+        }
+        refreshTable();
+        
+    }
+    
     
     
     @FXML
     private void enterTyped(KeyEvent event){
 
+        if(event.getCode().equals(KeyCode.DELETE) && !paneCash.isVisible()){
+            remove();
+        }
+        
+        
         if(event.getCode().equals(KeyCode.ENTER) && active == true){
             active = false;
         }
+        else
+            if(event.getCode().equals(KeyCode.ENTER) && paneCash.isVisible() && !txtClientAmount.getText().isEmpty()){
+                amount();
+                active = true;
+            }
         else
         
             if(event.getCode().equals(KeyCode.ENTER) && !paneCash.isVisible()){

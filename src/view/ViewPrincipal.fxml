@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="scanCode" onKeyReleased="#enterTyped" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewPrincipalController">
+<AnchorPane id="AnchorPane" fx:id="scanCode" onKeyReleased="#enterTyped" snapToPixel="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewPrincipalController">
    <children>
       <AnchorPane layoutY="283.0" prefHeight="9.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
       <AnchorPane layoutY="250.0" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" />
@@ -39,14 +39,20 @@
             <Font name="Arial Bold" size="16.0" />
          </font>
       </Text>
-      <Button fx:id="btnCashier" layoutX="544.0" layoutY="14.0" mnemonicParsing="false" onAction="#cashier" prefHeight="29.0" prefWidth="142.0" text="F2 - Cambiar Cajero">
+      <Button fx:id="btnCashier" layoutX="536.0" layoutY="14.0" mnemonicParsing="false" onAction="#cashier" prefHeight="29.0" prefWidth="150.0" text="[F2] - Cambiar Cajero">
          <font>
             <Font name="Arial Bold" size="13.0" />
-         </font></Button>
-      <Button fx:id="manageButton" layoutX="553.0" layoutY="49.0" mnemonicParsing="false" onAction="#manage" prefHeight="29.0" prefWidth="122.0" text="F3 - Administrar">
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
+      <Button fx:id="manageButton" layoutX="553.0" layoutY="49.0" mnemonicParsing="false" onAction="#manage" prefHeight="29.0" prefWidth="128.0" text="[F3] - Administrar">
          <font>
             <Font name="Arial Bold" size="13.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <Button fx:id="cashPayment" alignment="TOP_RIGHT" contentDisplay="CENTER" layoutX="551.0" layoutY="386.0" mnemonicParsing="false" onAction="#cash" prefHeight="40.0" prefWidth="142.0" text="Pago Efectivo" wrapText="true">
          <font>
             <Font name="Arial Bold" size="13.0" />
@@ -61,10 +67,13 @@
          <effect>
             <DropShadow />
          </effect></Button>
-      <Button layoutX="551.0" layoutY="82.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="F4 - Cuadrar caja">
+      <Button layoutX="551.0" layoutY="82.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="136.0" text="[F4] - Cuadrar caja">
          <font>
             <Font name="Arial Bold" size="13.0" />
-         </font></Button>
+         </font>
+         <effect>
+            <DropShadow />
+         </effect></Button>
       <TableView fx:id="shoppingTable" layoutX="22.0" layoutY="113.0" prefHeight="382.0" prefWidth="519.0">
         <columns>
             <TableColumn fx:id="cantCol" prefWidth="63.0" text="Cant." />
@@ -92,7 +101,7 @@
             <Font name="Arial Bold" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="txtbarCode" layoutX="207.0" layoutY="71.0">
+      <TextField fx:id="txtbarCode" layoutX="207.0" layoutY="71.0" prefHeight="25.0" prefWidth="150.0">
          <effect>
             <InnerShadow />
          </effect>
@@ -111,7 +120,7 @@
          <font>
             <Font name="Arial" size="12.0" />
          </font></Text>
-      <Button fx:id="btnaddProduct" layoutX="438.0" layoutY="71.0" mnemonicParsing="false" onAction="#addProduct" text="F1 - Agregar">
+      <Button fx:id="btnaddProduct" layoutX="438.0" layoutY="71.0" mnemonicParsing="false" onAction="#addProduct" text="[F1] - Agregar">
          <font>
             <Font name="Arial Bold" size="13.0" />
          </font>
@@ -152,14 +161,14 @@
                   <InnerShadow />
                </effect>
             </TextField>
-            <Button fx:id="btnAmount" layoutX="81.0" layoutY="218.0" mnemonicParsing="false" onAction="#amount" style="-fx-background-color: #32454c;" text="Ingresar monto" textFill="WHITE">
+            <Button fx:id="btnAmount" layoutX="114.0" layoutY="187.0" mnemonicParsing="false" onAction="#amount" style="-fx-background-color: #32454c;" text="[ENTER] Ingresar monto" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="17.0" />
                </font>
                <effect>
                   <DropShadow />
                </effect></Button>
-            <Button fx:id="btnCancel" layoutX="255.0" layoutY="219.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancel" layoutX="152.0" layoutY="227.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="[ESC] Cancelar" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
@@ -171,7 +180,7 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Text>
-            <Button layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="1. $1000">
+            <Button layoutX="14.0" layoutY="140.0" mnemonicParsing="false" text="[1] $1000">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -179,7 +188,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button layoutX="114.0" layoutY="140.0" mnemonicParsing="false" text="2. $5000">
+            <Button layoutX="114.0" layoutY="140.0" mnemonicParsing="false" text="[2] $5000">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -187,7 +196,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button layoutX="213.0" layoutY="140.0" mnemonicParsing="false" text="3. 10.000">
+            <Button layoutX="213.0" layoutY="140.0" mnemonicParsing="false" text="[3] 10.000">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -195,7 +204,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button layoutX="314.0" layoutY="140.0" mnemonicParsing="false" text="4. $20.000">
+            <Button layoutX="314.0" layoutY="140.0" mnemonicParsing="false" text="[4] $20.000">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -205,10 +214,18 @@
             </Button>
          </children>
       </Pane>
-      <Text disable="true" layoutX="615.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(ENTER)">
+      <Text disable="true" layoutX="615.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[ENTER]">
          <font>
             <Font name="Arial" size="11.0" />
          </font>
       </Text>
+      <Button fx:id="removeProduct" layoutX="546.0" layoutY="174.0" mnemonicParsing="false" onAction="#remove" prefHeight="49.0" prefWidth="142.0" style="-fx-background-color: #ff4040;" text="[SUPR] - Eliminar producto" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

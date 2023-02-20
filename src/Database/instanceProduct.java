@@ -77,6 +77,9 @@ public class instanceProduct {
     public void aumentar (){
         cant++;
     }
+    public void restar(){
+        cant--;
+    }
     
 
     @Override

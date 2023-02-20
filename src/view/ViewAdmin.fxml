@@ -13,7 +13,7 @@
             <Image url="@../Images/admin.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnCashier" layoutX="90.0" layoutY="58.0" mnemonicParsing="false" onAction="#cashier" style="-fx-background-color: #32454c;" text="1. Administrar cajeros" textFill="WHITE">
+      <Button fx:id="btnCashier" layoutX="90.0" layoutY="58.0" mnemonicParsing="false" onAction="#cashier" style="-fx-background-color: #32454c;" text="[1] Administrar cajeros" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -21,7 +21,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="btnProduct" layoutX="79.0" layoutY="109.0" mnemonicParsing="false" onAction="#product" style="-fx-background-color: #32454c;" text="2. Administrar productos" textFill="WHITE">
+      <Button fx:id="btnProduct" layoutX="79.0" layoutY="109.0" mnemonicParsing="false" onAction="#product" style="-fx-background-color: #32454c;" text="[2] Administrar productos" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -29,7 +29,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="btnCancel" layoutX="145.0" layoutY="238.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="Cacelar" textFill="WHITE">
+      <Button fx:id="btnCancel" layoutX="120.0" layoutY="254.0" mnemonicParsing="false" onAction="#cancel" style="-fx-background-color: #ff4040;" text="[ESC] Cancelar" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -37,7 +37,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="adminSale" layoutX="108.0" layoutY="162.0" mnemonicParsing="false" onAction="#sale" style="-fx-background-color: #32454c;" text="3. Mostrar Ventas" textFill="WHITE">
+      <Button fx:id="adminSale" layoutX="108.0" layoutY="162.0" mnemonicParsing="false" onAction="#sale" style="-fx-background-color: #32454c;" text="[3] Mostrar Ventas" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>

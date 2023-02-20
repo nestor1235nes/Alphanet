@@ -12,21 +12,21 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ViewProductController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewProductController">
    <children>
       <ImageView fitHeight="558.0" fitWidth="552.0" layoutX="-39.0" layoutY="14.0" opacity="0.12" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/inventario.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nameField" layoutX="247.0" layoutY="43.0" prefHeight="26.0" prefWidth="175.0">
+      <TextField fx:id="nameField" layoutX="247.0" layoutY="33.0">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
          <effect>
             <InnerShadow />
          </effect></TextField>
-      <TextField fx:id="priceField" layoutX="247.0" layoutY="83.0">
+      <TextField fx:id="priceField" layoutX="247.0" layoutY="73.0">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
@@ -48,31 +48,32 @@
          <effect>
             <DropShadow />
          </effect></Button>
-      <Button alignment="CENTER_RIGHT" layoutX="479.0" layoutY="298.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="31.0" prefWidth="95.0" style="-fx-background-color: #ff4040;" text="Eliminar" textFill="WHITE">
+      <Button alignment="CENTER_RIGHT" layoutX="480.0" layoutY="106.0" mnemonicParsing="false" onAction="#deleteProduct" prefHeight="31.0" prefWidth="95.0" style="-fx-background-color: #ff4040;" text="Eliminar" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font></Button>
-      <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="171.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="29.0" prefWidth="95.0" text="Guardar">
+      <Button alignment="CENTER_RIGHT" layoutX="87.0" layoutY="190.0" mnemonicParsing="false" onAction="#saveProduct" prefHeight="29.0" prefWidth="95.0" text="Guardar">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font></Button>
-      <Button alignment="CENTER_RIGHT" layoutX="238.0" layoutY="171.0" mnemonicParsing="false" onAction="#cleanButton" prefHeight="29.0" prefWidth="95.0" text="Limpiar">
+      <Button alignment="CENTER_RIGHT" layoutX="220.0" layoutY="190.0" mnemonicParsing="false" onAction="#cleanButton" prefHeight="29.0" prefWidth="95.0" text="Limpiar">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font></Button>
-      <Button alignment="CENTER_RIGHT" layoutX="379.0" layoutY="171.0" mnemonicParsing="false" onAction="#pdfButton" prefHeight="29.0" prefWidth="68.0" text="PDF">
+      <Button alignment="CENTER_RIGHT" layoutX="361.0" layoutY="190.0" mnemonicParsing="false" onAction="#pdfButton" prefHeight="29.0" prefWidth="68.0" text="PDF">
          <font>
             <Font name="Arial Bold" size="14.0" />
          </font></Button>
-      <TableView fx:id="productTable" layoutX="16.0" layoutY="236.0" onMouseClicked="#clickProduct" prefHeight="315.0" prefWidth="441.0">
+      <TableView fx:id="productTable" layoutX="21.0" layoutY="229.0" onMouseClicked="#clickProduct" prefHeight="315.0" prefWidth="558.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="39.0" text="ID" />
-          <TableColumn fx:id="nameCol" prefWidth="150.0" text="Nombre" />
-            <TableColumn fx:id="priceCol" prefWidth="94.0" text="Precio" />
-            <TableColumn fx:id="codeCol" prefWidth="157.0" text="Codigo" />
+          <TableColumn fx:id="nameCol" prefWidth="185.0" text="Nombre" />
+            <TableColumn fx:id="priceCol" prefWidth="124.0" text="Precio" />
+            <TableColumn fx:id="codeCol" prefWidth="113.0" text="Codigo" />
+            <TableColumn fx:id="amountCol" prefWidth="96.0" text="Cantidad" />
         </columns>
       </TableView>
-      <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="483.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="30.0" layoutX="484.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/basurero.png" />
          </image>
@@ -82,26 +83,32 @@
             <Image url="@../Images/tick.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="20.0" layoutX="111.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="20.0" layoutX="93.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/guardar.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="379.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="361.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/pdf.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="238.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="220.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/escoba.png" />
          </image>
       </ImageView>
-      <TextField fx:id="codeField" layoutX="247.0" layoutY="126.0" />
-      <Text layoutX="64.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo de barra">
+      <TextField fx:id="codeField" layoutX="247.0" layoutY="119.0" />
+      <Text layoutX="62.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo de barra">
          <font>
             <Font name="Baskerville Old Face" size="16.0" />
          </font>
       </Text>
+      <Text layoutX="62.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad">
+         <font>
+            <Font name="Baskerville Old Face" size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="amountField" layoutX="247.0" layoutY="152.0" />
    </children>
 </AnchorPane>

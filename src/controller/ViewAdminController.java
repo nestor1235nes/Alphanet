@@ -14,11 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -44,8 +47,9 @@ public class ViewAdminController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewProduct.fxml"));
             stage = new Stage();
-            stage.setTitle("Principal");
+            stage.setTitle("Product");
             stage.setScene(new Scene(root));
+            new Maximaze(stage);
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);

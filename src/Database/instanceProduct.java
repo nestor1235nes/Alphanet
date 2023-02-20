@@ -15,7 +15,7 @@ public class instanceProduct {
     private int id;
     private String name;
     private int precio;
-    private BigInteger codigo;
+    private String codigo;
     private int cant;
     
     
@@ -42,11 +42,11 @@ public class instanceProduct {
         this.cant = cant;
     }
     
-    public BigInteger getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(BigInteger codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

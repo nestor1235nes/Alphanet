@@ -46,6 +46,9 @@ import javax.swing.JOptionPane;
  */
 public class ViewPrincipalController implements Initializable {
     
+    
+    
+    
     Producto p;
     daoProducto dao = new daoProducto();
     daoVenta daoV = new daoVenta();
@@ -56,8 +59,12 @@ public class ViewPrincipalController implements Initializable {
     int y = 1;
     int id;
     int user = Session.getCurrentInstance().getLoggedUser();
+    int option;
+    boolean active = false;
 
     
+    @FXML
+    private Button removeProduct;
     
     @FXML
     private Button btnCancel;
@@ -125,8 +132,98 @@ public class ViewPrincipalController implements Initializable {
     }
     
     @FXML
+    public void remove(){
+        
+        instanceProduct ip = shoppingTable.getSelectionModel().getSelectedItem();
+        if (ip == null) {
+            
+            String [] opcion = {"Aceptar"};      
+            JOptionPane.showOptionDialog(null, "Se necesita que seleccione un producto a eliminar", "Error", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+            active = true;
+        }
+        else{
+            if(ip.getCant() == 1){
+                carrito.remove(ip);
+                total = total - ip.getPrecio();
+                totalPrice.setText(Integer.toString(total));
+            }
+            else{
+                ip.restar();
+                total = total - ip.getPrecio();
+                totalPrice.setText(Integer.toString(total));
+            }
+        }
+        refreshTable();
+        
+    }
+    
+    
+    
+    @FXML
     private void enterTyped(KeyEvent event){
 
+        if(event.getCode().equals(KeyCode.DELETE) && !paneCash.isVisible()){
+            remove();
+        }
+        
+        
+        if(event.getCode().equals(KeyCode.ENTER) && active == true){
+            active = false;
+        }
+        else
+            if(event.getCode().equals(KeyCode.ENTER) && paneCash.isVisible() && !txtClientAmount.getText().isEmpty()){
+                amount();
+                active = true;
+            }
+        else
+        
+            if(event.getCode().equals(KeyCode.ENTER) && !paneCash.isVisible()){
+                cash();
+            }
+        else
+            if(event.getCode().equals(KeyCode.ESCAPE) && paneCash.isVisible()){
+                cancel();
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT1) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+                option = 1000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT2) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+                option = 5000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT3) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+                option = 10000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.DIGIT4) && paneCash.isVisible() && !txtClientAmount.isFocused()){
+
+                option = 20000;
+                amount();
+
+            }
+        else
+            if(event.getCode().equals(KeyCode.F1)){
+                btnaddProduct.setFocusTraversable(true);
+                addProduct();
+                
+            }
+        else
+            if (event.getCode().equals(KeyCode.F3)) {
+            manage();
+        }
+        else
+            if (event.getCode().equals(KeyCode.F2)) {
+            cashier();
+        }
+        
         aux = aux+event.getText();
         try {       
             lista = dao.read();
@@ -191,7 +288,7 @@ public class ViewPrincipalController implements Initializable {
     
     
     @FXML
-    void addProduct(ActionEvent event){
+    void addProduct(){
         
         String code = txtbarCode.getText();
         String cant = txtCant.getText();
@@ -241,13 +338,12 @@ public class ViewPrincipalController implements Initializable {
     }
     
     @FXML
-    void cashier(ActionEvent event){
-        Node source = (Node) event.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+    void cashier(){
+        Stage stage = (Stage) this.btnCancel.getScene().getWindow();
         stage.close();
         
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLogin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLog.fxml"));
             stage = new Stage();
             stage.setTitle("Inicio de sesión");
             stage.setScene(new Scene(root));
@@ -275,34 +371,40 @@ public class ViewPrincipalController implements Initializable {
     
     
     @FXML 
-    void cash(ActionEvent event){     
+    void cash(){     
         paneCash.setVisible(true);  
+        paneCash.toFront();
+        
     }  
     
     @FXML
-    void cancel (ActionEvent event ){
+    void cancel (){
         paneCash.setVisible(false);
     }
     
     @FXML
-    void amount(ActionEvent event){
-        String monto = txtClientAmount.getText();
-        if(txtClientAmount.getText().equals("")){
-            String [] opcion = {"Aceptar"};        
-            JOptionPane.showOptionDialog(null, "Ingrese monto pagado por cliente.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");  
+    void amount(){
+        
+        if (carrito.isEmpty()) {
+            String [] opcion = {"Aceptar"};
+                
+            JOptionPane.showOptionDialog(null, "El carrito está vacio", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
         }
-        else{
+        
+        if(txtClientAmount.getText().equals("") && !carrito.isEmpty()){
+
+            
             addVenta();
-            int dinero = Integer.parseInt(monto);
-            dinero = dinero - total;
+            int dinero = option - total;;
+            
             
             if(dinero>=0){
                 String [] opcion = {"Aceptar"};
-            
+                
                 JOptionPane.showOptionDialog(null, "El vuelto es de: $" + dinero +".", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+                active = true;
 
 
-                paneCash.setVisible(false);
                 for (int i = carrito.size()-1; i >=0 ; i--) {
 
                     carrito.remove(i);
@@ -312,11 +414,44 @@ public class ViewPrincipalController implements Initializable {
                 totalPrice.setText("");
                 y=1;
                 refreshTable();
+                cancel();
             }
             else{
                 String [] opcion = {"Aceptar"};      
                 JOptionPane.showOptionDialog(null, "Faltan: $" + (dinero*-1) +" para pagar el/los productos.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
             }
+        }
+        
+        else{
+            if (!carrito.isEmpty()) {
+                String monto = txtClientAmount.getText();
+                addVenta();
+                int dinero = Integer.parseInt(monto);
+                dinero = dinero - total;
+
+                if(dinero>=0){
+                    String [] opcion = {"Aceptar"};
+
+                    JOptionPane.showOptionDialog(null, "El vuelto es de: $" + dinero +".", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+
+
+                    paneCash.setVisible(false);
+                    for (int i = carrito.size()-1; i >=0 ; i--) {
+
+                        carrito.remove(i);
+                    }
+                    txtClientAmount.setText("");
+                    total = 0;
+                    totalPrice.setText("");
+                    y=1;
+                    refreshTable();
+                }
+                else{
+                    String [] opcion = {"Aceptar"};      
+                    JOptionPane.showOptionDialog(null, "Faltan: $" + (dinero*-1) +" para pagar el/los productos.", "Aviso", 0, JOptionPane.QUESTION_MESSAGE, null, opcion, "Aceptar");
+                }
+            }
+            
             
         }
     }
@@ -332,22 +467,9 @@ public class ViewPrincipalController implements Initializable {
             JOptionPane.showMessageDialog(null, "No se guardó la venta");
         }
     }
-    
-    @FXML
-    void manual(ActionEvent event){
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewaddManual.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Principal");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     @FXML
-    void manage(ActionEvent event) {
+    void manage() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewAdmin.fxml"));
             Stage stage = new Stage();

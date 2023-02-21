@@ -15,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -33,7 +35,14 @@ public class ViewStartController implements Initializable {
     private Button btnStart;
     
     @FXML
-    void start(ActionEvent event){
+    void enter(KeyEvent event){
+        if(event.getCode().equals(KeyCode.ENTER)){
+            start();
+        }
+    }
+    
+    @FXML
+    void start(){
         try {
             
             
@@ -50,6 +59,7 @@ public class ViewStartController implements Initializable {
             stage = new Stage();
             stage.setTitle("Principal");
             stage.setScene(new Scene(root));
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
         }

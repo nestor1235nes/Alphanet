@@ -22,7 +22,7 @@ public class Alphanet extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {         
-            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLogin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/ViewLog.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

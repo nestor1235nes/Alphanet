@@ -59,7 +59,7 @@ public class ViewStartController implements Initializable {
             stage = new Stage();
             stage.setTitle("Principal");
             stage.setScene(new Scene(root));
-            //stage.setMaximized(true);
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
         }

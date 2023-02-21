@@ -49,7 +49,7 @@ public class ViewAdminController implements Initializable {
             stage = new Stage();
             stage.setTitle("Product");
             stage.setScene(new Scene(root));
-            new Maximaze(stage);
+            //new Maximaze(stage);
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);

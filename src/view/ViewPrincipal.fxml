@@ -22,12 +22,12 @@
       <AnchorPane layoutY="194.0" prefHeight="49.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <AnchorPane layoutY="104.0" prefHeight="84.0" prefWidth="700.0" style="-fx-background-color: #c6d1db;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Text layoutX="221.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agrega producto manual" wrappingWidth="219.40087890625">
+            <Text layoutX="221.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agrega producto manual" wrappingWidth="219.40087890625" AnchorPane.rightAnchor="959.59912109375">
                <font>
                   <Font name="Arial Bold" size="17.0" />
                </font>
             </Text>
-            <TextField fx:id="txtbarCode" layoutX="426.0" layoutY="2.0" prefHeight="25.0" prefWidth="187.0">
+            <TextField fx:id="txtbarCode" layoutX="440.0" layoutY="1.0" prefHeight="25.0" prefWidth="187.0" AnchorPane.rightAnchor="773.0">
                <effect>
                   <InnerShadow />
                </effect>
@@ -35,12 +35,12 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtCant" layoutX="644.0" layoutY="2.0" prefHeight="25.0" prefWidth="56.0" AnchorPane.leftAnchor="644.0">
+            <TextField fx:id="txtCant" layoutX="644.0" layoutY="2.0" prefHeight="25.0" prefWidth="56.0" AnchorPane.rightAnchor="700.0">
                <effect>
                   <InnerShadow />
                </effect>
             </TextField>
-            <Button fx:id="btnaddProduct" layoutX="733.0" layoutY="2.0" mnemonicParsing="false" onAction="#addProduct" text="[F1] - Agregar" AnchorPane.leftAnchor="733.0">
+            <Button fx:id="btnaddProduct" layoutX="733.0" layoutY="2.0" mnemonicParsing="false" onAction="#addProduct" text="[F1] - Agregar" AnchorPane.rightAnchor="548.0">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
@@ -141,11 +141,11 @@
             <Font name="Arial Bold" size="21.0" />
          </font>
       </Label>
-      <Text layoutX="464.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo de barras">
+      <Text layoutX="478.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo de barras" AnchorPane.rightAnchor="814.6005859375">
          <font>
             <Font name="Arial" size="14.0" />
          </font></Text>
-      <Text layoutX="646.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" AnchorPane.leftAnchor="646.0">
+      <Text layoutX="643.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" AnchorPane.rightAnchor="700.958984375">
          <font>
             <Font name="Arial" size="14.0" />
          </font></Text>

@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -36,6 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,7 +48,7 @@ public class ViewProductController implements Initializable {
     Producto p;
     daoProducto dao = new daoProducto();
     ObservableList<Producto> lista;
-    
+
     @FXML
     private TableColumn<Producto, String> codeCol;
     
@@ -60,6 +60,9 @@ public class ViewProductController implements Initializable {
 
     @FXML
     private TableColumn<Producto, String> priceCol;
+    
+    @FXML
+    private TableColumn<Producto, String> amountCol;
 
     @FXML
     private TextField nameField;
@@ -69,6 +72,9 @@ public class ViewProductController implements Initializable {
     
     @FXML
     private TextField codeField;
+    
+    @FXML
+    private TextField amountField;
 
     @FXML
     private TableView<Producto> productTable;
@@ -78,6 +84,7 @@ public class ViewProductController implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("name"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("precio"));
         codeCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("codigo"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<Producto,String>("cantidad"));
         try {       
             lista = dao.read();
             productTable.setItems(lista);
@@ -90,6 +97,7 @@ public class ViewProductController implements Initializable {
         nameField.setText("");
         priceField.setText("");
         codeField.setText("");
+        amountField.setText("");
     }
 
     @FXML
@@ -97,7 +105,8 @@ public class ViewProductController implements Initializable {
         p = new Producto();
         p.setName(nameField.getText());
         p.setPrecio(Integer.parseInt(priceField.getText()));
-        p.setCodigo(new BigInteger(codeField.getText()));
+        p.setCodigo(codeField.getText());
+        p.setCantidad(Integer.parseInt(amountField.getText()));
         if (!dao.create(p)) {
             JOptionPane.showMessageDialog(null, "No se inserto el producto");
         }
@@ -111,7 +120,8 @@ public class ViewProductController implements Initializable {
             p = productTable.getSelectionModel().getSelectedItem();
             nameField.setText(p.getName());
             priceField.setText(Integer.toString(p.getPrecio()));
-            codeField.setText(""+p.getCodigo());
+            codeField.setText(p.getCodigo());
+            amountField.setText(Integer.toString(p.getCantidad()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }    
@@ -154,30 +164,35 @@ public class ViewProductController implements Initializable {
             p.add(Chunk.NEWLINE);
             p.setAlignment(Element.ALIGN_CENTER);
             doc.add(p);
-            PdfPTable tabla = new PdfPTable(4);
+            PdfPTable tabla = new PdfPTable(5);
             tabla.setWidthPercentage(100);
             PdfPCell c1 = new PdfPCell(new Phrase("ID", negrita));
             PdfPCell c2 = new PdfPCell(new Phrase("NOMBRE", negrita));
             PdfPCell c3 = new PdfPCell(new Phrase("PRECIO", negrita));
             PdfPCell c4 = new PdfPCell(new Phrase("CODIGO", negrita));
+            PdfPCell c5 = new PdfPCell(new Phrase("CANTIDAD", negrita));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             c2.setHorizontalAlignment(Element.ALIGN_CENTER);
             c3.setHorizontalAlignment(Element.ALIGN_CENTER);
             c4.setHorizontalAlignment(Element.ALIGN_CENTER);
+            c5.setHorizontalAlignment(Element.ALIGN_CENTER);
             c1.setBackgroundColor(BaseColor.LIGHT_GRAY);
             c2.setBackgroundColor(BaseColor.LIGHT_GRAY);
             c3.setBackgroundColor(BaseColor.LIGHT_GRAY);
             c4.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            c5.setBackgroundColor(BaseColor.LIGHT_GRAY);
             tabla.addCell(c1);
             tabla.addCell(c2);
             tabla.addCell(c3);
             tabla.addCell(c4);
+            tabla.addCell(c5);
             lista = dao.read();
             for (Producto product : lista) {
                 tabla.addCell(""+product.getId());
                 tabla.addCell(product.getName());
                 tabla.addCell(""+product.getPrecio());
-                tabla.addCell(""+product.getCodigo());
+                tabla.addCell(product.getCodigo());
+                tabla.addCell(""+product.getCantidad());
             }
             doc.add(tabla);
             p = new Paragraph(10);
@@ -207,6 +222,7 @@ public class ViewProductController implements Initializable {
     void saveProduct(ActionEvent event) {
         p.setName(nameField.getText());
         p.setPrecio(Integer.parseInt(priceField.getText()));
+        p.setCantidad(Integer.parseInt(amountField.getText()));
         if (!dao.update(p)) {
             JOptionPane.showMessageDialog(null, "No se actualizo el registro");
         }
@@ -218,5 +234,4 @@ public class ViewProductController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         refreshTable();
     }    
-    
 }

@@ -36,6 +36,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
 
 
@@ -473,8 +474,9 @@ public class ViewPrincipalController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/ViewAdmin.fxml"));
             Stage stage = new Stage();
-            stage.setTitle("Principal");
+            stage.setTitle("Manage");
             stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(ViewPrincipalController.class.getName()).log(Level.SEVERE, null, ex);

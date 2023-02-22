@@ -10,8 +10,6 @@ import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.math.BigInteger;
@@ -29,11 +27,12 @@ public class daoProducto {
     
     public boolean create(Producto p){
         try {
-            String sql = "INSERT INTO productos(nombre,precio,codigo) VALUES(?,?,?)";
+            String sql = "INSERT INTO productos(nombre,precio,codigo,cantidad) VALUES(?,?,?,?)";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getPrecio());
-            ps.setObject(3, p.getCodigo());
+            ps.setString(3, p.getCodigo());
+            ps.setInt(4, p.getCantidad());
             ps.execute();
             ps.close();
             ps = null;
@@ -44,11 +43,11 @@ public class daoProducto {
         }
     }
     
-    public boolean search(BigInteger codigo){
+    public boolean search(String codigo){
         try {
             String sql = "SELECT * FROM productos WHERE codigo=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
-            ps.setBigDecimal(1, new BigDecimal(codigo));
+            ps.setString(1, codigo);
             ps.execute();
             ps.close();
             ps = null;
@@ -69,7 +68,8 @@ public class daoProducto {
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("nombre"));
                 p.setPrecio(rs.getInt("precio"));
-                p.setCodigo(rs.getBigDecimal("codigo").toBigInteger());
+                p.setCodigo(rs.getString("codigo"));
+                p.setCantidad(rs.getInt("cantidad"));
                 lista.add(p);
             }
             ps.close();
@@ -98,12 +98,13 @@ public class daoProducto {
     
     public boolean update(Producto p){
         try {
-            String sql = "UPDATE productos SET nombre=?,precio=?,codigo=? WHERE id=?";
+            String sql = "UPDATE productos SET nombre=?,precio=?,codigo=?,cantidad=? WHERE id=?";
             PreparedStatement ps = c.conectar().prepareStatement(sql);
             ps.setString(1, p.getName());
             ps.setInt(2, p.getPrecio());
-            ps.setObject(3, p.getCodigo());
-            ps.setInt(4, p.getId());
+            ps.setString(3, p.getCodigo());
+            ps.setInt(4, p.getCantidad());
+            ps.setInt(5, p.getId());
             ps.execute();
             ps.close();
             ps = null;
